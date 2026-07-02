@@ -1367,8 +1367,12 @@ document.addEventListener('DOMContentLoaded', function(){
     // padding-left del track (posición, no animación previa) — sin empalme
     // entre tweens no existe el frame de salto. anticipatePin fuera: con
     // Lenis controlando el scroll también provocaba brincos al anclar.
+    // Ease por tramos: el primer 12% del recorrido va acelerado (1.8x) para
+    // que el movimiento a la izquierda arranque de inmediato al anclar;
+    // el resto queda lineal, con el crucero y el final intactos.
+    const jEase = p => p < .12 ? p * 1.8 : .216 + (p - .12) * (.784 / .88);
     const jTween = gsap.to(jTrack, {
-      x: () => -jDist(), ease: 'none',
+      x: () => -jDist(), ease: jEase,
       scrollTrigger: {
         trigger: '#journey', start: 'top top',
         end: () => '+=' + jDist(),
