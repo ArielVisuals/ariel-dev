@@ -88,7 +88,6 @@
     .sig-l { animation: mql 28s linear infinite; will-change: transform; }
     .sig-sans { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -.02em; color: #EDEDE6; font-size: clamp(2.9rem, 5.2vw, 4.4rem); line-height: 1.1; padding-right: .4em; }
     .sig-lime { color: #C6FF34; }
-    #sig-path { stroke-dasharray: 1; }
 
     /* JOURNEY — línea del tiempo horizontal (scrub con el scroll en desktop,
        scroller nativo deslizable en móvil / reduced-motion / sin GSAP) */
@@ -1410,13 +1409,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // Signature: three strokes with micro-pauses, like actually signing
-  // (segment splits match the path: A loop ≈ 38%, middle u's ≈ 24%, final N ≈ 38%)
-  gsap.set('#sig-path',{strokeDashoffset:1});
-  gsap.timeline({scrollTrigger:{trigger:'#about-img',start:'top 85%'}})
-    .to('#sig-path',{strokeDashoffset:.66,duration:.34,ease:'power1.in'})
-    .to('#sig-path',{strokeDashoffset:.34,duration:.28,ease:'power1.inOut'},'+=0.06')
-    .to('#sig-path',{strokeDashoffset:0,  duration:.3, ease:'power2.out'},'+=0.05');
+  // La firma no se anima: aparece junto con la fotografía en el reveal de la tarjeta
   gsap.from('.proj-row',{opacity:0,y:32,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'#proj-list',start:'top 80%'}});
   gsap.from('.proc-step',{opacity:0,y:40,stagger:.12,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 72%'}});
   gsap.from('.skill-tag',{opacity:0,scale:.75,stagger:.04,duration:.5,ease:'back.out(1.5)',scrollTrigger:{trigger:'#skills-wrap',start:'top 85%'}});
