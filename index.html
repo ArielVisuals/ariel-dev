@@ -16,6 +16,9 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Playfair+Display:ital,wght@1,600&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Playfair+Display:ital,wght@1,600&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Playfair+Display:ital,wght@1,600&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
+  <link rel="preload" as="image" href="https://cdn.simpleicons.org/safari" />
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" />
+  <link rel="preload" as="image" href="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" />
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
@@ -1055,9 +1058,21 @@ document.addEventListener('DOMContentLoaded', function(){
   // T=0.4 — Dock slides up (glass effect enabled only after the fade ends)
   const dockBg = document.getElementById('dock-bg');
   function setDockGlass(on){
-    const v = on ? 'blur(40px) saturate(220%) brightness(1.1)' : '';
-    dockBg.style.backdropFilter = v;
-    dockBg.style.webkitBackdropFilter = v;
+    if(on){
+      // Ramp the glass in over half a second instead of snapping it on
+      // ('none' → filter doesn't interpolate, so start from identity values)
+      dockBg.style.transition = 'none';
+      dockBg.style.backdropFilter = 'blur(0px) saturate(100%) brightness(1)';
+      dockBg.style.webkitBackdropFilter = 'blur(0px) saturate(100%) brightness(1)';
+      void dockBg.offsetWidth;
+      dockBg.style.transition = 'backdrop-filter .5s ease, -webkit-backdrop-filter .5s ease';
+      dockBg.style.backdropFilter = 'blur(40px) saturate(220%) brightness(1.1)';
+      dockBg.style.webkitBackdropFilter = 'blur(40px) saturate(220%) brightness(1.1)';
+    } else {
+      dockBg.style.transition = 'none';
+      dockBg.style.backdropFilter = 'none';
+      dockBg.style.webkitBackdropFilter = 'none';
+    }
   }
   tl.fromTo('#macos-dock',
     { opacity:0, y:64, scale:.93 },
