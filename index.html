@@ -1339,12 +1339,14 @@ document.addEventListener('DOMContentLoaded', function(){
     const jPin  = document.getElementById('journey-pin');
     const jDist = () => jTrack.scrollWidth - jPin.clientWidth;
     jPin.style.overflowX = 'hidden';
-    // Fase 1: mientras el manifesto sale, el 2017 ya asoma desde el borde derecho
-    gsap.fromTo(jTrack, { x: () => jPin.clientWidth }, {
+    // Fase 1: mientras el manifesto sale, el contenido ya viene entrando desde la derecha.
+    // Recorre exactamente window.innerHeight px (la longitud de scroll de la aproximación),
+    // así la velocidad es 1:1 igual que la fase anclada y el empalme no se nota.
+    gsap.fromTo(jTrack, { x: () => window.innerHeight }, {
       x: 0, ease: 'none', immediateRender: true,
       scrollTrigger: { trigger: '#journey', start: 'top bottom', end: 'top top', scrub: .8, invalidateOnRefresh: true }
     });
-    // Fase 2: sección anclada, el contenido recorre hacia la izquierda
+    // Fase 2: sección anclada, mismo ritmo 1:1 hacia la izquierda
     gsap.fromTo(jTrack, { x: 0 }, {
       x: () => -jDist(), ease: 'none', immediateRender: false,
       scrollTrigger: {
