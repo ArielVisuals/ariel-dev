@@ -76,6 +76,16 @@
     .mq-r  { animation: mqr 32s linear infinite; will-change: transform; }
     .mq-l2 { animation: mql 46s linear infinite; will-change: transform; }
     .mq-row:hover .mq-l, .mq-row:hover .mq-r, .mq-row:hover .mq-l2 { animation-play-state: paused; }
+    /* ABOUT — signature card (photo + type marquees + lime signature) */
+    .sig-row { position: absolute; left: -2%; width: 104%; overflow: hidden; pointer-events: none; }
+    .sig-track { display: flex; width: max-content; }
+    .sig-track span { white-space: nowrap; display: block; }
+    .sig-r { animation: mqr 34s linear infinite; will-change: transform; }
+    .sig-l { animation: mql 28s linear infinite; will-change: transform; }
+    .sig-serif { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 600; color: #C6FF34; font-size: clamp(2.3rem, 4.2vw, 3.5rem); line-height: 1.15; padding-right: .35em; }
+    .sig-sans { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: -.02em; color: #EDEDE6; font-size: clamp(2.1rem, 3.9vw, 3.3rem); line-height: 1.15; padding-right: .4em; }
+    #sig-path { stroke-dasharray: 1; }
+
     .stack-item { position: relative; transition: background .3s cubic-bezier(.23,1,.32,1); }
     .stack-item:hover { background: rgba(198,255,52,.05); }
     .stack-item:hover .si-label { color: #C6FF34 !important; }
@@ -443,29 +453,38 @@
 <section id="about" class="sec-pad" style="padding:128px 64px;">
   <div class="section-inner about-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
     <div id="about-img" style="position:relative;">
-      <div style="aspect-ratio:4/5;background:rgba(23,23,23,.9);border-radius:24px;border:1px solid rgba(178,213,229,.1);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;">
-        <svg aria-hidden="true" viewBox="0 0 400 500" width="100%" height="100%" style="position:absolute;inset:0;">
-          <defs><radialGradient id="ag" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#C6FF34" stop-opacity=".06"/><stop offset="100%" stop-color="#020202" stop-opacity="0"/></radialGradient></defs>
-          <rect width="400" height="500" fill="url(#ag)"/>
-          <line x1="200" y1="0" x2="200" y2="500" stroke="rgba(198,255,52,.05)" stroke-width="1"/>
-          <line x1="0" y1="250" x2="400" y2="250" stroke="rgba(198,255,52,.05)" stroke-width="1"/>
-          <circle cx="200" cy="210" r="130" fill="none" stroke="rgba(178,213,229,.1)" stroke-width="1" stroke-dasharray="6 10"/>
-          <circle cx="200" cy="210" r="90" fill="none" stroke="rgba(198,255,52,.15)" stroke-width="1"/>
-          <circle cx="200" cy="210" r="52" fill="rgba(198,255,52,.04)" stroke="rgba(198,255,52,.25)" stroke-width="1.5"/>
-          <text x="200" y="225" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="42" font-weight="500" fill="rgba(198,255,52,.7)" letter-spacing="-1">AG</text>
-          <path d="M20 20 L20 56 M20 20 L56 20" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
-          <path d="M380 20 L380 56 M380 20 L344 20" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
-          <path d="M20 480 L20 444 M20 480 L56 480" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
-          <path d="M380 480 L380 444 M380 480 L344 480" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
-          <line x1="70" y1="360" x2="330" y2="360" stroke="rgba(178,213,229,.07)" stroke-width="1" stroke-dasharray="5 9"/>
-          <line x1="70" y1="378" x2="290" y2="378" stroke="rgba(178,213,229,.05)" stroke-width="1" stroke-dasharray="5 9"/>
-          <circle cx="340" cy="340" r="3" fill="#C6FF34" opacity=".6"/>
-          <circle cx="60" cy="160" r="2" fill="#B2D5E5" opacity=".4"/>
+      <div style="aspect-ratio:4/5;background:#0B0D05;border-radius:24px;border:1px solid rgba(178,213,229,.1);overflow:hidden;position:relative;">
+        <!-- Ambiente -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse 85% 60% at 50% 42%,rgba(198,255,52,.05) 0%,transparent 65%);pointer-events:none;" aria-hidden="true"></div>
+
+        <!-- Tipografía en marquesina detrás de la foto -->
+        <div class="sig-row" style="top:16%;" aria-hidden="true">
+          <div class="sig-track sig-r">
+            <span class="sig-serif">Ariel González&nbsp;— Ariel González&nbsp;— Ariel González&nbsp;— </span>
+            <span class="sig-serif">Ariel González&nbsp;— Ariel González&nbsp;— Ariel González&nbsp;— </span>
+          </div>
+        </div>
+        <div class="sig-row" style="top:40%;" aria-hidden="true">
+          <div class="sig-track sig-l">
+            <span class="sig-sans">Full Stack Developer&nbsp;· Full Stack Developer&nbsp;· </span>
+            <span class="sig-sans">Full Stack Developer&nbsp;· Full Stack Developer&nbsp;· </span>
+          </div>
+        </div>
+        <div class="sig-row" style="top:66%;" aria-hidden="true">
+          <div class="sig-track sig-r" style="animation-duration:46s;">
+            <span class="sig-serif" style="color:rgba(198,255,52,.3);">UX/UI · Telematic Engineer · UX/UI · Telematic Engineer · </span>
+            <span class="sig-serif" style="color:rgba(198,255,52,.3);">UX/UI · Telematic Engineer · UX/UI · Telematic Engineer · </span>
+          </div>
+        </div>
+
+        <!-- Foto (se activa sola cuando exista assets/ariel.jpg) -->
+        <img id="about-photo" alt="Ariel González" decoding="async" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62%;height:64%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.92);border:1px solid rgba(255,255,255,.08);display:none;" />
+
+        <!-- Firma en lima (se dibuja al hacer scroll) -->
+        <svg viewBox="0 0 440 300" fill="none" style="position:absolute;left:50%;top:49%;transform:translate(-50%,-50%);width:96%;overflow:visible;filter:drop-shadow(0 2px 10px rgba(198,255,52,.28));" aria-hidden="true">
+          <path id="sig-path" pathLength="1" d="M 46 214 C 92 140, 138 56, 164 64 C 194 74, 150 190, 118 238 M 84 172 C 130 158, 170 150, 210 146 M 190 190 C 220 160, 245 150, 262 156 C 282 164, 258 196, 244 200 C 262 202, 300 178, 330 158 C 352 144, 368 148, 358 166 C 344 192, 380 184, 402 160 M 396 210 C 320 252, 160 258, 70 236" stroke="#C6FF34" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.18em;color:rgba(245,245,245,.2);">[ PHOTO PLACEHOLDER ]</div>
       </div>
-      <div style="position:absolute;top:-16px;left:-16px;font-family:'JetBrains Mono',monospace;font-size:3.5rem;color:rgba(198,255,52,.12);line-height:1;pointer-events:none;" aria-hidden="true">{</div>
-      <div style="position:absolute;bottom:-16px;right:-16px;font-family:'JetBrains Mono',monospace;font-size:3.5rem;color:rgba(198,255,52,.12);line-height:1;pointer-events:none;" aria-hidden="true">}</div>
       <div style="position:absolute;top:20px;right:20px;display:flex;align-items:center;gap:7px;background:rgba(15,15,15,.8);border:1px solid rgba(198,255,52,.2);border-radius:100px;padding:5px 12px;">
         <span style="width:6px;height:6px;border-radius:50%;background:#C6FF34;box-shadow:0 0 6px #C6FF34;display:inline-block;"></span>
         <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);">Available</span>
@@ -782,6 +801,16 @@
 <script>
 // Respected by every JS-driven animation below (CSS ones are handled in the stylesheet)
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ── ABOUT PHOTO LOADER ─────────────────────────────
+// Shows the portrait only if assets/ariel.jpg exists (avoids 404s in console)
+(function(){
+  const img = document.getElementById('about-photo');
+  if(!img) return;
+  fetch('assets/ariel.jpg', { method:'HEAD' }).then(r => {
+    if(r.ok){ img.src = 'assets/ariel.jpg'; img.style.display = 'block'; }
+  }).catch(()=>{});
+})();
 
 // ── GRAIN ──────────────────────────────────────────
 (function(){
@@ -1179,6 +1208,8 @@ document.addEventListener('DOMContentLoaded', function(){
   rv('#proc-hdr');
   rv('#stack-hdr');
   rv('#contact-inner');
+  // Signature draws itself when the About card enters the viewport
+  gsap.from('#sig-path',{strokeDashoffset:1,duration:1.8,ease:'power2.inOut',scrollTrigger:{trigger:'#about-img',start:'top 70%'}});
   gsap.from('.proj-row',{opacity:0,y:32,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'#proj-list',start:'top 80%'}});
   gsap.from('.proc-step',{opacity:0,y:40,stagger:.12,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 72%'}});
   gsap.from('.skill-tag',{opacity:0,scale:.75,stagger:.04,duration:.5,ease:'back.out(1.5)',scrollTrigger:{trigger:'#skills-wrap',start:'top 85%'}});
