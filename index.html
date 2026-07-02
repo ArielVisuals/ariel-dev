@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ariel González — Full Stack Developer & Designer</title>
+  <meta name="description" content="Ariel González, full stack developer and UX/UI designer. Selected projects, process and tech stack. Open to freelance projects, full-time roles and collaborations." />
+  <meta name="theme-color" content="#020202" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ariel González — Full Stack Developer & Designer" />
+  <meta property="og:description" content="Full stack developer and UX/UI designer. Selected projects, process and tech stack." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23020202'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='26' font-weight='bold' text-anchor='middle' fill='%23C6FF34'%3EAG%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Playfair+Display:ital,wght@1,600&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Playfair+Display:ital,wght@1,600&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Playfair+Display:ital,wght@1,600&family=Sora:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" /></noscript>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { overflow-x: hidden; scroll-behavior: smooth; }
+    body { background: #020202; color: #F5F5F5; font-family: 'Sora', sans-serif; overflow-x: hidden; cursor: none; }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-track { background: #020202; }
+    ::-webkit-scrollbar-thumb { background: #C6FF34; }
+
+    #cursor-dot { position: fixed; width: 8px; height: 8px; background: #C6FF34; border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+    #cursor-ring { position: fixed; width: 32px; height: 32px; border: 1.5px solid rgba(198,255,52,.45); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s cubic-bezier(.23,1,.32,1), height .3s cubic-bezier(.23,1,.32,1), border-color .3s; }
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg,#C6FF34,#B2D5E5); z-index: 1001; width: 0%; pointer-events: none; }
+
+    .tg { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 600; background: linear-gradient(135deg,#C6FF34 0%,#B2D5E5 55%,#fff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* NAV */
+    #site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; transition: background .4s; }
+    #site-nav.scrolled { background: rgba(2,2,2,.5); }
+    .nav-pill { display: flex; align-items: center; gap: 2px; background: rgba(8,8,8,.72); backdrop-filter: blur(32px) saturate(200%); -webkit-backdrop-filter: blur(32px) saturate(200%); border: 1px solid rgba(178,213,229,.18); border-radius: 100px; padding: 4px 6px; box-shadow: 0 2px 24px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06); }
+    .nav-pill { display: flex; align-items: center; gap: 2px; background: rgba(15,15,15,.7); backdrop-filter: blur(16px); border: 1px solid rgba(178,213,229,.1); border-radius: 100px; padding: 4px 6px; }
+    .nav-link { font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .08em; color: rgba(245,245,245,.5); text-decoration: none; padding: 7px 18px; border-radius: 100px; transition: color .2s, background .2s; }
+    .nav-link:hover { color: #C6FF34; background: rgba(198,255,52,.06); }
+    .nav-hire { font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .08em; color: rgba(245,245,245,.55); text-decoration: none; border: 1px solid rgba(178,213,229,.18); padding: 8px 22px; border-radius: 100px; transition: color .2s, border-color .2s; }
+    .nav-hire:hover { color: #C6FF34; border-color: rgba(198,255,52,.4); }
+
+    /* GLASS CARD */
+    .card-glass { background: rgba(23,23,23,.55); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(178,213,229,.12); border-radius: 20px; box-shadow: inset 0 1px 0 rgba(198,255,52,.06), 0 8px 32px rgba(0,0,0,.72); transition: border-color .4s cubic-bezier(.23,1,.32,1), box-shadow .4s cubic-bezier(.23,1,.32,1), transform .4s cubic-bezier(.23,1,.32,1); }
+    .card-glass:hover { border-color: rgba(198,255,52,.22); box-shadow: inset 0 1px 0 rgba(198,255,52,.12), 0 16px 48px rgba(0,0,0,.8), 0 0 40px rgba(198,255,52,.06); }
+
+    /* TAGS */
+    .skill-tag { font-family: 'JetBrains Mono', monospace; font-size: .63rem; letter-spacing: .1em; color: rgba(245,245,245,.55); border: 1px solid rgba(178,213,229,.18); padding: 5px 14px; border-radius: 100px; display: inline-block; transition: color .2s, border-color .2s, background .2s; cursor: default; }
+    .skill-tag:hover { color: #C6FF34; border-color: rgba(198,255,52,.4); background: rgba(198,255,52,.06); }
+    .tech-tag { font-family: 'JetBrains Mono', monospace; font-size: .55rem; color: rgba(178,213,229,.7); background: rgba(178,213,229,.05); padding: 2px 9px; border-radius: 100px; border: 1px solid rgba(178,213,229,.1); }
+
+    /* FILTER */
+    .filter-btn { font-family: 'JetBrains Mono', monospace; font-size: .68rem; letter-spacing: .08em; color: rgba(245,245,245,.55); background: transparent; border: 1px solid rgba(178,213,229,.18); padding: 8px 20px; border-radius: 100px; cursor: none; transition: all .2s; }
+    .filter-btn:hover, .filter-btn.active { color: #C6FF34; border-color: rgba(198,255,52,.5); background: rgba(198,255,52,.07); }
+
+    /* BUTTONS */
+    .btn-primary { background: #C6FF34; color: #020202; border: none; padding: 16px 44px; border-radius: 100px; font-family: 'Sora', sans-serif; font-weight: 500; font-size: .95rem; cursor: none; display: inline-flex; align-items: center; gap: 10px; transition: box-shadow .3s, transform .3s; }
+    .btn-primary:hover { box-shadow: 0 0 32px rgba(198,255,52,.35); }
+    .btn-card { font-family: 'Sora', sans-serif; font-size: .75rem; font-weight: 500; border: none; padding: 8px 20px; border-radius: 100px; cursor: none; transition: all .25s; }
+    .btn-card-lime { background: #C6FF34; color: #020202; }
+    .btn-card-lime:hover { box-shadow: 0 0 20px rgba(198,255,52,.3); }
+    .btn-card-ghost { background: rgba(178,213,229,.08); color: rgba(245,245,245,.8); border: 1px solid rgba(178,213,229,.2); }
+    .btn-card-ghost:hover { background: rgba(178,213,229,.14); }
+
+    /* SOCIAL */
+    .social-link { font-family: 'JetBrains Mono', monospace; font-size: .72rem; letter-spacing: .08em; color: rgba(245,245,245,.55); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; }
+    .social-link:hover { color: #C6FF34; }
+
+    /* MARQUEE */
+    @keyframes mql { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes mqr { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    .mq-l  { animation: mql 38s linear infinite; will-change: transform; }
+    .mq-r  { animation: mqr 32s linear infinite; will-change: transform; }
+    .mq-l2 { animation: mql 46s linear infinite; will-change: transform; }
+    .mq-row:hover .mq-l, .mq-row:hover .mq-r, .mq-row:hover .mq-l2 { animation-play-state: paused; }
+    .stack-item { position: relative; transition: background .3s cubic-bezier(.23,1,.32,1); }
+    .stack-item:hover { background: rgba(198,255,52,.05); }
+    .stack-item:hover .si-label { color: #C6FF34 !important; }
+    img.si-icon { display:block; filter: grayscale(1) brightness(1.4) opacity(.42); transition: filter .32s cubic-bezier(.23,1,.32,1), transform .32s cubic-bezier(.23,1,.32,1); }
+    .stack-item:hover img.si-icon { filter: grayscale(0) brightness(1.05) opacity(1); transform: translateY(-5px) scale(1.18); }
+
+    /* FORM */
+    input, textarea { background: rgba(245,245,245,.04); border: 1px solid rgba(178,213,229,.14); border-radius: 12px; padding: 14px 18px; font-family: 'Sora', sans-serif; font-size: .85rem; color: #F5F5F5; outline: none; width: 100%; transition: border-color .2s; }
+    input:focus, textarea:focus { border-color: rgba(198,255,52,.4); }
+    input::placeholder, textarea::placeholder { color: rgba(245,245,245,.5); }
+
+    /* SECTIONS */
+    .section-inner { max-width: 1300px; margin: 0 auto; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr !important; }
+      .projects-grid { grid-template-columns: 1fr !important; }
+      .process-grid { grid-template-columns: repeat(2,1fr) !important; }
+      .process-line { display: none !important; }
+      .wide-card { grid-column: span 1 !important; }
+    }
+    @media (max-width: 640px) {
+      #site-nav { padding: 16px 24px; }
+      .nav-pill { display: none; }
+      .hero-pad { padding: 0 24px !important; }
+      .sec-pad { padding: 80px 24px !important; }
+      .process-grid { grid-template-columns: 1fr !important; }
+      .form-grid { grid-template-columns: 1fr !important; }
+      .form-grid textarea, .form-grid button { grid-column: span 1 !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* Keyboard focus — the custom cursor hides the pointer, so focus must be unmistakable */
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid #C6FF34; outline-offset: 3px; border-radius: 4px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE — COMPREHENSIVE
+    ═══════════════════════════════════════════════════════ */
+
+    /* Touch: disable custom cursor */
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto !important; }
+      #cursor-dot, #cursor-ring { display: none !important; }
+      .btn-primary, .filter-btn, .btn-card, .nav-link, .nav-hire { cursor: pointer !important; }
+    }
+
+    /* Mobile nav base styles */
+    #nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      width: 38px; height: 38px; background: none; border: none;
+      padding: 7px; cursor: pointer; z-index: 201; flex-shrink: 0;
+    }
+    #nav-hamburger span {
+      display: block; width: 100%; height: 1.5px;
+      background: rgba(245,245,245,.58); border-radius: 2px;
+      transition: transform .32s cubic-bezier(.23,1,.32,1), opacity .22s, background .22s;
+    }
+    #nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: #C6FF34; }
+    #nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: #C6FF34; }
+
+    #mobile-nav-drawer {
+      position: fixed; inset: 0; z-index: 199;
+      background: rgba(2,2,2,.97);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .38s cubic-bezier(.23,1,.32,1);
+    }
+    #mobile-nav-drawer.open { opacity: 1; pointer-events: auto; }
+    #mobile-nav-drawer .mob-link {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(2.6rem, 9.5vw, 4rem); font-weight: 800;
+      letter-spacing: -.03em; line-height: 1;
+      color: rgba(245,245,245,.42); text-decoration: none;
+      padding: 10px 0; display: block;
+      transition: color .18s, transform .22s cubic-bezier(.23,1,.32,1);
+    }
+    #mobile-nav-drawer .mob-link:hover { color: #C6FF34; transform: translateX(10px); }
+    #mobile-nav-drawer .mob-divider {
+      width: 36px; height: 1px;
+      background: rgba(178,213,229,.12); margin: 20px 0 18px;
+    }
+    #mobile-nav-drawer .mob-hire {
+      font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+      letter-spacing: .14em; color: rgba(245,245,245,.55); text-decoration: none;
+      border: 1px solid rgba(178,213,229,.16); padding: 12px 32px; border-radius: 100px;
+      transition: color .18s, border-color .18s;
+    }
+    #mobile-nav-drawer .mob-hire:hover { color: #C6FF34; border-color: rgba(198,255,52,.35); }
+    #mobile-nav-drawer .mob-socials { display: flex; gap: 32px; margin-top: 36px; }
+    #mobile-nav-drawer .mob-socials a {
+      font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+      letter-spacing: .1em; color: rgba(245,245,245,.55); text-decoration: none;
+      transition: color .18s;
+    }
+    #mobile-nav-drawer .mob-socials a:hover { color: #B2D5E5; }
+
+    /* ═══ TABLET (≤ 1024px) ════════════════════════════════ */
+    @media (max-width: 1024px) {
+      #site-nav { padding: 18px 40px !important; }
+      #hero { padding: 72px 28px 28px !important; }
+      #mac-window { width: 92% !important; }
+      .sec-pad { padding: 104px 48px !important; }
+      .about-grid { gap: 56px !important; }
+      .process-grid { grid-template-columns: repeat(3,1fr) !important; gap: 36px !important; }
+    }
+
+    /* ═══ TABLET PORTRAIT / LARGE PHONE (≤ 768px) ══════════ */
+    @media (max-width: 768px) {
+      /* Nav */
+      #site-nav { display: flex !important; justify-content: space-between !important; padding: 14px 20px !important; }
+      .nav-pill { display: none !important; }
+      .nav-hire { display: none !important; }
+      #nav-hamburger { display: flex !important; }
+
+      /* Hero */
+      #hero { height: auto !important; min-height: 100dvh !important; padding: 64px 14px 20px !important; }
+      #mac-window { width: 100% !important; height: auto !important; min-height: 56vh !important; max-width: 100% !important; margin-top: 0 !important; border-radius: 10px !important; }
+      .hero-pad { padding: 28px 22px 88px !important; }
+      #h-eye { margin-bottom: 20px !important; gap: 10px !important; }
+      #h-eye span:last-child { font-size: .54rem !important; letter-spacing: .13em !important; }
+      #h-name { margin-bottom: 26px !important; }
+      #h-tag { max-width: 100% !important; font-size: .84rem !important; line-height: 1.75 !important; }
+      #h-cta { flex-direction: column !important; align-items: stretch !important; gap: 12px !important; width: 100% !important; max-width: 320px !important; }
+      #h-cta .btn-primary { justify-content: center !important; }
+      #h-scroll { display: none !important; }
+      #macos-dock { display: none !important; }
+
+      /* Sections */
+      .sec-pad { padding: 80px 24px !important; }
+      #stack { padding-top: 80px !important; padding-bottom: 80px !important; }
+      #stack-hdr { padding-left: 24px !important; padding-right: 24px !important; margin-bottom: 36px !important; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+
+      /* Work */
+      .proj-title { font-size: clamp(1.1rem, 5.2vw, 1.6rem) !important; letter-spacing: -.02em !important; }
+      #proj-preview { display: none !important; }
+      .proj-cat { display: none !important; }
+
+      /* Process */
+      .process-grid { grid-template-columns: repeat(2,1fr) !important; gap: 24px !important; }
+      .process-line { display: none !important; }
+
+      /* Contact */
+      #email-btn { flex-wrap: wrap !important; justify-content: center !important; gap: 8px !important; }
+
+      /* Footer */
+      footer { padding: 20px 24px !important; flex-direction: column !important; gap: 6px !important; text-align: center !important; }
+    }
+
+    /* ═══ SMALL MOBILE (≤ 480px) ═══════════════════════════ */
+    @media (max-width: 480px) {
+      #site-nav { padding: 12px 16px !important; }
+      .hero-pad { padding: 20px 16px 72px !important; }
+      #mac-window { min-height: 52vh !important; border-radius: 8px !important; }
+      #h-eye span:last-child { font-size: .48rem !important; }
+      .process-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+      footer { padding: 16px !important; }
+    }
+
+    /* ═══ EXTRA SMALL (≤ 360px) ═══════════════════════════ */
+    @media (max-width: 360px) {
+      .hero-pad { padding: 16px 12px 60px !important; }
+      #h-cta { max-width: 100% !important; }
+    }
+
+    /* ═══ GAPS AT 900px ════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .about-grid { gap: 40px !important; }
+      .process-grid { gap: 28px !important; }
+    }
+
+    /* ═══ STACK MARQUEE MASK ON MOBILE ════════════════════ */
+    @media (max-width: 640px) {
+      .mq-row {
+        -webkit-mask-image: linear-gradient(90deg,transparent 0%,#000 6%,#000 94%,transparent 100%) !important;
+        mask-image: linear-gradient(90deg,transparent 0%,#000 6%,#000 94%,transparent 100%) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<header id="site-nav">
+  <div style="display:flex;align-items:center;">
+    <a href="#hero" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.18em;color:#C6FF34;text-decoration:none;font-weight:500;">AG</a>
+  </div>
+  <nav class="nav-pill">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#work" class="nav-link">Work</a>
+    <a href="#process" class="nav-link">Process</a>
+    <a href="#stack" class="nav-link">Stack</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+  <div style="display:flex;align-items:center;justify-content:flex-end;gap:12px;">
+    <a href="#contact" class="nav-hire">Hire me ↗</a>
+    <button id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav Drawer -->
+<div id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#work" class="mob-link">Work</a>
+  <a href="#process" class="mob-link">Process</a>
+  <a href="#stack" class="mob-link">Stack</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <div class="mob-divider"></div>
+  <a href="#contact" class="mob-hire">Hire me ↗</a>
+  <div class="mob-socials">
+    <a href="https://github.com/arielgonzalez" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://linkedin.com/in/arielgonzalez" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</div>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero" style="position:relative;width:100%;height:100vh;min-height:680px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:80px 40px 40px;">
+
+  <!-- Page bg ambient -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 50% 20%,rgba(198,255,52,.05) 0%,transparent 65%);pointer-events:none;z-index:0;"></div>
+  <canvas id="hero-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;opacity:.3;pointer-events:none;z-index:1;"></canvas>
+  <div id="grain" aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;opacity:.035;z-index:2;background-size:200px 200px;"></div>
+
+  <!-- macOS Window -->
+  <div id="mac-window" style="position:relative;z-index:3;width:82%;max-width:920px;height:68vh;min-height:420px;margin-top:48px;border-radius:14px;overflow:hidden;opacity:0;box-shadow:0 48px 128px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.13);">
+
+    <!-- Title bar -->
+    <div aria-hidden="true" style="height:44px;background:radial-gradient(ellipse 70% 160% at 50% 50%,rgba(72,72,72,.96) 0%,rgba(52,52,52,.92) 35%,rgba(18,18,18,.85) 65%,rgba(2,2,2,0) 100%);display:flex;align-items:center;padding:0 18px;position:relative;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.04);">
+      <!-- Traffic lights -->
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:13px;height:13px;border-radius:50%;background:#ff736a;border:0.5px solid rgba(0,0,0,.2);box-shadow:inset 0 0.5px 0 rgba(255,255,255,.25);"></div>
+        <div style="width:13px;height:13px;border-radius:50%;background:#febc2e;border:0.5px solid rgba(0,0,0,.2);box-shadow:inset 0 0.5px 0 rgba(255,255,255,.25);"></div>
+        <div style="width:13px;height:13px;border-radius:50%;background:#19c332;border:0.5px solid rgba(0,0,0,.2);box-shadow:inset 0 0.5px 0 rgba(255,255,255,.25);"></div>
+      </div>
+      <!-- URL bar -->
+      <div style="position:absolute;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.3);border:0.5px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 18px;min-width:220px;text-align:center;">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.06em;color:rgba(255,255,255,.38);">ariel-gonzalez.dev</span>
+      </div>
+      <!-- Right controls -->
+      <div style="margin-left:auto;font-family:'-apple-system',monospace;font-size:.75rem;color:rgba(255,255,255,.22);">+</div>
+    </div>
+
+    <!-- Window body -->
+    <div style="background:#060606;width:100%;height:calc(100% - 44px);position:relative;overflow:hidden;display:flex;align-items:center;">
+      <!-- Inner ambient -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 28% 50%,rgba(198,255,52,.04) 0%,transparent 60%);pointer-events:none;"></div>
+      <div style="position:absolute;top:0;right:0;width:50%;height:100%;background:radial-gradient(ellipse at 100% 40%,rgba(178,213,229,.03) 0%,transparent 65%);pointer-events:none;"></div>
+
+      <div class="hero-pad" style="padding:56px 72px;width:100%;position:relative;">
+
+        <!-- Eyebrow -->
+        <div id="h-eye" style="display:flex;align-items:center;gap:14px;margin-bottom:36px;opacity:0;transform:translateY(16px);">
+          <span style="display:inline-block;width:28px;height:1px;background:#C6FF34;"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#B2D5E5;">FULL STACK DEVELOPER · UX/UI · TELEMATIC ENGINEER</span>
+        </div>
+
+        <!-- Title — 500+/ejercicios exact effect -->
+        <h1 id="h-name" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;letter-spacing:-.03em;margin-bottom:44px;opacity:0;transform:translateY(50px);position:relative;line-height:1;text-align:left;display:inline-block;">
+          <!-- ARIEL: bright top → fully transparent bottom -->
+          <span style="display:block;position:relative;z-index:1;font-style:normal;font-size:clamp(4rem,10.5vw,9.5rem);background:linear-gradient(to bottom,#ffffff 0%,#dddddd 40%,rgba(160,160,160,.35) 65%,rgba(80,80,80,.06) 80%,transparent 92%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">ARIEL</span>
+          <!-- gonzalez: overlaps deeper into ARIEL -->
+          <span style="display:block;position:relative;z-index:2;margin-top:-.98em;font-family:'Bricolage Grotesque',sans-serif;font-style:normal;font-weight:600;font-size:clamp(1.4rem,3.8vw,3.2rem);color:#F5F5F5;letter-spacing:-.01em;text-align:center;width:100%;">GONZALEZ</span>
+        </h1>
+
+        <!-- Tagline + CTA -->
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:28px;">
+          <p id="h-tag" style="font-family:'Sora',sans-serif;font-size:clamp(.85rem,1.2vw,1.02rem);color:rgba(245,245,245,.55);max-width:400px;line-height:1.9;opacity:0;transform:translateY(16px);">
+            Engineering interfaces at the intersection<br/>of code precision and visual intelligence.
+          </p>
+          <div id="h-cta" style="display:flex;align-items:center;gap:22px;opacity:0;transform:translateY(16px);">
+            <button id="btn-work" class="btn-primary" data-magnetic>View Work <span>→</span></button>
+            <a href="#contact" class="nav-link" style="color:rgba(245,245,245,.55);">Let's talk ↗</a>
+          </div>
+        </div>
+
+        <div style="position:absolute;bottom:32px;right:72px;font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.12);" aria-hidden="true">2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator — outside window, bottom-left of hero -->
+  <div id="h-scroll" aria-hidden="true" style="position:absolute;bottom:100px;left:56px;z-index:4;display:flex;align-items:center;gap:12px;opacity:0;">
+    <div style="width:1px;height:44px;background:linear-gradient(180deg,#C6FF34,transparent);"></div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.22em;color:rgba(245,245,245,.5);writing-mode:vertical-rl;transform:rotate(180deg);">SCROLL</span>
+  </div>
+
+  <!-- macOS Dock -->
+  <div id="macos-dock" aria-hidden="true" style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%) translateY(120px);z-index:10;opacity:0;overflow:visible;">
+    <div id="dock-inner" style="background:rgba(255,255,255,.08);backdrop-filter:blur(40px) saturate(220%) brightness(1.1);-webkit-backdrop-filter:blur(40px) saturate(220%) brightness(1.1);border:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.08);border-radius:22px;padding:8px 14px;display:flex;align-items:flex-end;gap:6px;overflow:visible;position:relative;box-shadow:0 12px 48px rgba(0,0,0,.72),0 2px 0 rgba(255,255,255,.06) inset,0 -1px 0 rgba(0,0,0,.4) inset,inset 0 1px 0 rgba(255,255,255,.18);">
+
+      <!-- Finder -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#5ac8fa,#1b6dd1);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
+        <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="10" cy="15" r="8" fill="#1d3d7a"/><circle cx="20" cy="15" r="8" fill="#5ac8fa"/><circle cx="10" cy="12" r="2.5" fill="white"/><circle cx="20" cy="12" r="2.5" fill="white"/></svg>
+      </div>
+
+      <!-- Safari -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#ffffff,#e8e8e8);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
+        <svg width="30" height="30" viewBox="0 0 30 30"><circle cx="15" cy="15" r="12" fill="none" stroke="#007aff" stroke-width="2"/><line x1="15" y1="3" x2="15" y2="27" stroke="#007aff" stroke-width="1" opacity=".4"/><line x1="3" y1="15" x2="27" y2="15" stroke="#007aff" stroke-width="1" opacity=".4"/><polygon points="15,7 18,18 15,16 12,18" fill="#ff3b30"/><polygon points="15,23 12,12 15,14 18,12" fill="#007aff" opacity=".5"/></svg>
+      </div>
+
+      <!-- VS Code -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#1e3a5f,#0d47a1);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
+        <svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 7 L14 14 L4 21 L2 19 L10 14 L2 9Z" fill="rgba(255,255,255,.9)"/><path d="M14 7 L26 3 L26 25 L14 21 L14 16 L20 14 L14 12Z" fill="white"/></svg>
+      </div>
+
+      <!-- Figma -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:#1e1e1e;display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
+        <svg width="22" height="32" viewBox="0 0 22 32"><rect x="0" y="0" width="10" height="10" rx="5" fill="#ff7262"/><rect x="12" y="0" width="10" height="10" rx="5" fill="#1abcfe"/><rect x="0" y="11" width="10" height="10" rx="5" fill="#a259ff"/><circle cx="17" cy="16" r="5" fill="#0acf83"/><rect x="0" y="22" width="10" height="10" rx="5" fill="#ff7262"/></svg>
+      </div>
+
+      <!-- Terminal -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#1a1a1a,#2d2d2d);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;border:1px solid rgba(255,255,255,.1);">
+        <svg width="28" height="20" viewBox="0 0 28 20"><polyline points="2,4 10,10 2,16" stroke="#C6FF34" stroke-width="2.5" fill="none" stroke-linecap="round"/><line x1="13" y1="16" x2="26" y2="16" stroke="#C6FF34" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </div>
+
+      <!-- AG Portfolio — the special one -->
+      <div id="dock-ag" class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#0d1f0d,#1a3a0a);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;border:1px solid rgba(198,255,52,.3);box-shadow:0 0 16px rgba(198,255,52,.2);position:relative;">
+        <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:800;background:linear-gradient(135deg,#C6FF34,#B2D5E5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em;">AG</span>
+        <!-- Running dot -->
+        <div id="ag-dot" style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.7);"></div>
+      </div>
+
+      <!-- Separator -->
+      <div style="width:1px;height:40px;background:rgba(255,255,255,.15);margin:0 4px;align-self:center;flex-shrink:0;"></div>
+
+      <!-- GitHub -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:#24292e;display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </div>
+
+      <!-- Settings -->
+      <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#636366,#48484a);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="white" opacity=".9"><path d="M13 8a5 5 0 100 10A5 5 0 0013 8zm0 8a3 3 0 110-6 3 3 0 010 6z"/><path d="M21.7 10.9l-1.4-.8a8 8 0 000-2.2l1.4-.8a1 1 0 00.4-1.4l-2-3.4a1 1 0 00-1.4-.4l-1.4.8a8 8 0 00-1.9-1.1V1a1 1 0 00-1-1h-4a1 1 0 00-1 1v1.6A8 8 0 007.1 3.7l-1.4-.8a1 1 0 00-1.4.4l-2 3.4a1 1 0 00.4 1.4l1.4.8a8 8 0 000 2.2l-1.4.8a1 1 0 00-.4 1.4l2 3.4a1 1 0 001.4.4l1.4-.8a8 8 0 001.9 1.1V25a1 1 0 001 1h4a1 1 0 001-1v-1.6a8 8 0 001.9-1.1l1.4.8a1 1 0 001.4-.4l2-3.4a1 1 0 00-.4-1.4z"/></svg>
+      </div>
+
+    </div>
+    <!-- Dock label -->
+    <div id="dock-label" style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(30,30,30,.85);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:4px 10px;font-family:'-apple-system',sans-serif;font-size:.7rem;color:white;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;">AG Portfolio</div>
+  </div>
+
+</section>
+
+<div style="width:100%;height:1px;background:linear-gradient(90deg,transparent 0%,#C6FF34 40%,#B2D5E5 70%,transparent 100%);"></div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about" class="sec-pad" style="padding:128px 64px;">
+  <div class="section-inner about-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center;">
+    <div id="about-img" style="position:relative;">
+      <div style="aspect-ratio:4/5;background:rgba(23,23,23,.9);border-radius:24px;border:1px solid rgba(178,213,229,.1);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;">
+        <svg aria-hidden="true" viewBox="0 0 400 500" width="100%" height="100%" style="position:absolute;inset:0;">
+          <defs><radialGradient id="ag" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#C6FF34" stop-opacity=".06"/><stop offset="100%" stop-color="#020202" stop-opacity="0"/></radialGradient></defs>
+          <rect width="400" height="500" fill="url(#ag)"/>
+          <line x1="200" y1="0" x2="200" y2="500" stroke="rgba(198,255,52,.05)" stroke-width="1"/>
+          <line x1="0" y1="250" x2="400" y2="250" stroke="rgba(198,255,52,.05)" stroke-width="1"/>
+          <circle cx="200" cy="210" r="130" fill="none" stroke="rgba(178,213,229,.1)" stroke-width="1" stroke-dasharray="6 10"/>
+          <circle cx="200" cy="210" r="90" fill="none" stroke="rgba(198,255,52,.15)" stroke-width="1"/>
+          <circle cx="200" cy="210" r="52" fill="rgba(198,255,52,.04)" stroke="rgba(198,255,52,.25)" stroke-width="1.5"/>
+          <text x="200" y="225" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="42" font-weight="500" fill="rgba(198,255,52,.7)" letter-spacing="-1">AG</text>
+          <path d="M20 20 L20 56 M20 20 L56 20" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
+          <path d="M380 20 L380 56 M380 20 L344 20" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
+          <path d="M20 480 L20 444 M20 480 L56 480" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
+          <path d="M380 480 L380 444 M380 480 L344 480" stroke="rgba(198,255,52,.28)" stroke-width="1.5" fill="none"/>
+          <line x1="70" y1="360" x2="330" y2="360" stroke="rgba(178,213,229,.07)" stroke-width="1" stroke-dasharray="5 9"/>
+          <line x1="70" y1="378" x2="290" y2="378" stroke="rgba(178,213,229,.05)" stroke-width="1" stroke-dasharray="5 9"/>
+          <circle cx="340" cy="340" r="3" fill="#C6FF34" opacity=".6"/>
+          <circle cx="60" cy="160" r="2" fill="#B2D5E5" opacity=".4"/>
+        </svg>
+        <div style="position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.18em;color:rgba(245,245,245,.2);">[ PHOTO PLACEHOLDER ]</div>
+      </div>
+      <div style="position:absolute;top:-16px;left:-16px;font-family:'JetBrains Mono',monospace;font-size:3.5rem;color:rgba(198,255,52,.12);line-height:1;pointer-events:none;" aria-hidden="true">{</div>
+      <div style="position:absolute;bottom:-16px;right:-16px;font-family:'JetBrains Mono',monospace;font-size:3.5rem;color:rgba(198,255,52,.12);line-height:1;pointer-events:none;" aria-hidden="true">}</div>
+      <div style="position:absolute;top:20px;right:20px;display:flex;align-items:center;gap:7px;background:rgba(15,15,15,.8);border:1px solid rgba(198,255,52,.2);border-radius:100px;padding:5px 12px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#C6FF34;box-shadow:0 0 6px #C6FF34;display:inline-block;"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);">Available</span>
+      </div>
+    </div>
+
+    <div id="about-txt">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+        <span style="width:24px;height:1px;background:#B2D5E5;display:inline-block;"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#B2D5E5;">01 / ABOUT</span>
+      </div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.9rem,3.5vw,3rem);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-bottom:28px;">
+        Engineer by logic.<br><span class="tg">designer by obsession.</span>
+      </h2>
+      <p style="font-family:'Sora',sans-serif;font-size:.92rem;color:rgba(245,245,245,.55);line-height:1.85;margin-bottom:24px;">
+        I'm a Telematic Engineer with a drive for building digital experiences that are technically precise and visually compelling. I bridge the gap between systems thinking and human-centered design.
+      </p>
+      <blockquote style="border-left:2px solid #C6FF34;padding-left:20px;margin-bottom:40px;">
+        <p style="font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-style:italic;color:rgba(245,245,245,.65);line-height:1.65;">"The best interface is the one that disappears — leaving only the experience."</p>
+      </blockquote>
+      <div id="skills-wrap" style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="skill-tag">React</span><span class="skill-tag">Next.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Figma</span><span class="skill-tag">Docker</span><span class="skill-tag">AWS</span><span class="skill-tag">GraphQL</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">Redis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ WORK ══════════ -->
+<section id="work" class="sec-pad" style="padding:128px 64px;">
+  <div class="section-inner">
+
+    <!-- Header -->
+    <div id="work-hdr" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:72px;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span style="width:24px;height:1px;background:#B2D5E5;display:inline-block;"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#B2D5E5;">02 / WORK</span>
+        </div>
+        <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2rem,5vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:.95;">Selected<br><span class="tg">projects</span></h2>
+      </div>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.12em;color:rgba(245,245,245,.5);">05 projects</span>
+    </div>
+
+    <!-- Project list -->
+    <div id="proj-list" style="position:relative;">
+
+      <div class="proj-row" data-index="0" style="display:flex;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid rgba(178,213,229,.08);cursor:none;transition:border-color .3s;">
+        <div style="display:flex;align-items:baseline;gap:24px;">
+          <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(245,245,245,.5);transition:color .3s;">01</span>
+          <h3 class="proj-title" style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;letter-spacing:-.025em;color:rgba(245,245,245,.55);transition:color .35s,letter-spacing .35s;">NexaFlow Platform</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#C6FF34;opacity:0;transition:opacity .3s;" class="proj-cat">FULLSTACK</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(245,245,245,.5);">2025</span>
+          <span class="proj-arrow" aria-hidden="true" style="font-size:1.1rem;color:rgba(245,245,245,.5);transition:transform .35s,color .3s;display:inline-block;">↗</span>
+        </div>
+      </div>
+
+      <div class="proj-row" data-index="1" style="display:flex;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid rgba(178,213,229,.08);cursor:none;transition:border-color .3s;">
+        <div style="display:flex;align-items:baseline;gap:24px;">
+          <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(245,245,245,.5);transition:color .3s;">02</span>
+          <h3 class="proj-title" style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;letter-spacing:-.025em;color:rgba(245,245,245,.55);transition:color .35s,letter-spacing .35s;">Orbit Design System</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#B2D5E5;opacity:0;transition:opacity .3s;" class="proj-cat">DESIGN</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(245,245,245,.5);">2025</span>
+          <span class="proj-arrow" aria-hidden="true" style="font-size:1.1rem;color:rgba(245,245,245,.5);transition:transform .35s,color .3s;display:inline-block;">↗</span>
+        </div>
+      </div>
+
+      <div class="proj-row" data-index="2" style="display:flex;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid rgba(178,213,229,.08);cursor:none;transition:border-color .3s;">
+        <div style="display:flex;align-items:baseline;gap:24px;">
+          <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(245,245,245,.5);transition:color .3s;">03</span>
+          <h3 class="proj-title" style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;letter-spacing:-.025em;color:rgba(245,245,245,.55);transition:color .35s,letter-spacing .35s;">Pulse API Gateway</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:rgba(245,245,245,.5);opacity:0;transition:opacity .3s;" class="proj-cat">BACKEND</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(245,245,245,.5);">2024</span>
+          <span class="proj-arrow" aria-hidden="true" style="font-size:1.1rem;color:rgba(245,245,245,.5);transition:transform .35s,color .3s;display:inline-block;">↗</span>
+        </div>
+      </div>
+
+      <div class="proj-row" data-index="3" style="display:flex;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid rgba(178,213,229,.08);cursor:none;transition:border-color .3s;">
+        <div style="display:flex;align-items:baseline;gap:24px;">
+          <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(245,245,245,.5);transition:color .3s;">04</span>
+          <h3 class="proj-title" style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;letter-spacing:-.025em;color:rgba(245,245,245,.55);transition:color .35s,letter-spacing .35s;">Vanta Dashboard</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#B2D5E5;opacity:0;transition:opacity .3s;" class="proj-cat">FRONTEND</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(245,245,245,.5);">2024</span>
+          <span class="proj-arrow" aria-hidden="true" style="font-size:1.1rem;color:rgba(245,245,245,.5);transition:transform .35s,color .3s;display:inline-block;">↗</span>
+        </div>
+      </div>
+
+      <div class="proj-row" data-index="4" style="display:flex;align-items:center;justify-content:space-between;padding:28px 0;border-top:1px solid rgba(178,213,229,.08);border-bottom:1px solid rgba(178,213,229,.08);cursor:none;transition:border-color .3s;">
+        <div style="display:flex;align-items:baseline;gap:24px;">
+          <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:.62rem;color:rgba(245,245,245,.5);transition:color .3s;">05</span>
+          <h3 class="proj-title" style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:800;letter-spacing:-.025em;color:rgba(245,245,245,.55);transition:color .35s,letter-spacing .35s;">Aether Social Platform</h3>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.14em;color:#C6FF34;opacity:0;transition:opacity .3s;" class="proj-cat">FULLSTACK</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:.6rem;color:rgba(245,245,245,.5);">2023</span>
+          <span class="proj-arrow" aria-hidden="true" style="font-size:1.1rem;color:rgba(245,245,245,.5);transition:transform .35s,color .3s;display:inline-block;">↗</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating preview card (follows cursor) -->
+    <div id="proj-preview" aria-hidden="true" style="position:fixed;top:0;left:0;width:340px;pointer-events:none;z-index:500;opacity:0;transform:scale(.88) translateY(12px);transition:opacity .38s cubic-bezier(.23,1,.32,1),transform .38s cubic-bezier(.23,1,.32,1);">
+      <div class="card-glass" style="padding:20px;display:flex;align-items:flex-start;gap:16px;">
+        <div id="prev-thumb" style="flex-shrink:0;width:88px;height:88px;border-radius:12px;overflow:hidden;position:relative;"></div>
+        <div style="flex:1;min-width:0;">
+          <div id="prev-cat" style="font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.14em;margin-bottom:7px;"></div>
+          <div id="prev-title" style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-.015em;margin-bottom:7px;"></div>
+          <div id="prev-desc" style="font-family:'Sora',sans-serif;font-size:.72rem;color:rgba(245,245,245,.55);line-height:1.55;margin-bottom:12px;"></div>
+          <div id="prev-tags" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ PROCESS ══════════ -->
+<section id="process" class="sec-pad" style="padding:128px 64px;background:rgba(12,12,12,.6);">
+  <div class="section-inner">
+    <div id="proc-hdr" style="margin-bottom:88px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <span style="width:24px;height:1px;background:#B2D5E5;display:inline-block;"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#B2D5E5;">03 / PROCESS</span>
+      </div>
+      <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2rem,5vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:.95;">How I <span class="tg">build</span></h2>
+    </div>
+    <div class="process-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:48px;position:relative;">
+      <div class="process-line" style="position:absolute;top:23px;left:calc(10% + 16px);right:calc(10% + 16px);height:1px;background:linear-gradient(90deg,#C6FF34 0%,#B2D5E5 60%,rgba(178,213,229,.15) 100%);z-index:0;"></div>
+      <div class="proc-step" style="text-align:center;position:relative;z-index:1;">
+        <div style="width:46px;height:46px;border-radius:50%;background:#020202;border:1.5px solid #C6FF34;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#C6FF34;position:relative;">01<div style="position:absolute;inset:-5px;border-radius:50%;border:1px solid rgba(198,255,52,.18);"></div></div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;">Research</h3>
+        <p style="font-family:'Sora',sans-serif;font-size:.75rem;color:rgba(245,245,245,.55);line-height:1.65;">User interviews, competitive analysis, problem framing</p>
+      </div>
+      <div class="proc-step" style="text-align:center;position:relative;z-index:1;">
+        <div style="width:46px;height:46px;border-radius:50%;background:#020202;border:1.5px solid rgba(198,255,52,.6);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:rgba(198,255,52,.7);">02</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;">Design</h3>
+        <p style="font-family:'Sora',sans-serif;font-size:.75rem;color:rgba(245,245,245,.55);line-height:1.65;">Wireframes, prototypes, design system definition</p>
+      </div>
+      <div class="proc-step" style="text-align:center;position:relative;z-index:1;">
+        <div style="width:46px;height:46px;border-radius:50%;background:#020202;border:1.5px solid rgba(178,213,229,.5);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:#B2D5E5;">03</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;">Build</h3>
+        <p style="font-family:'Sora',sans-serif;font-size:.75rem;color:rgba(245,245,245,.55);line-height:1.65;">Clean code, component architecture, API design</p>
+      </div>
+      <div class="proc-step" style="text-align:center;position:relative;z-index:1;">
+        <div style="width:46px;height:46px;border-radius:50%;background:#020202;border:1.5px solid rgba(178,213,229,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:rgba(178,213,229,.55);">04</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;">Test</h3>
+        <p style="font-family:'Sora',sans-serif;font-size:.75rem;color:rgba(245,245,245,.55);line-height:1.65;">Unit tests, integration, performance benchmarks</p>
+      </div>
+      <div class="proc-step" style="text-align:center;position:relative;z-index:1;">
+        <div style="width:46px;height:46px;border-radius:50%;background:#020202;border:1.5px solid rgba(178,213,229,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:rgba(178,213,229,.35);">05</div>
+        <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;">Ship</h3>
+        <p style="font-family:'Sora',sans-serif;font-size:.75rem;color:rgba(245,245,245,.55);line-height:1.65;">CI/CD deployment, monitoring, iteration</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ STACK ══════════ -->
+<section id="stack" style="padding:128px 0;overflow:hidden;">
+  <div id="stack-hdr" style="max-width:1300px;margin:0 auto 56px;padding:0 64px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+      <span style="width:24px;height:1px;background:#B2D5E5;display:inline-block;"></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#B2D5E5;">04 / STACK</span>
+    </div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2rem,5vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:.95;">Tech <span class="tg">arsenal</span></h2>
+  </div>
+
+  <!-- Row 1 → izquierda -->
+  <div class="mq-row" style="overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%);border-top:1px solid rgba(178,213,229,.07);border-bottom:1px solid rgba(178,213,229,.07);margin-bottom:1px;">
+    <div class="mq-l" style="display:flex;width:max-content;">
+      <div style="display:flex;">
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/react" width="32" height="32" alt="React" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">React</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/nextdotjs" width="32" height="32" alt="Next.js" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Next.js</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/nodedotjs" width="32" height="32" alt="Node.js" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Node.js</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/python" width="32" height="32" alt="Python" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Python</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/typescript" width="32" height="32" alt="TypeScript" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">TypeScript</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/graphql" width="32" height="32" alt="GraphQL" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">GraphQL</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/postgresql" width="32" height="32" alt="PostgreSQL" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">PostgreSQL</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/redis" width="32" height="32" alt="Redis" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Redis</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/docker" width="32" height="32" alt="Docker" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Docker</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="32" height="32" alt="AWS" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">AWS</span></div>
+      </div>
+      <div style="display:flex;" aria-hidden="true">
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/react" width="32" height="32" alt="React" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">React</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/nextdotjs" width="32" height="32" alt="Next.js" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Next.js</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/nodedotjs" width="32" height="32" alt="Node.js" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Node.js</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/python" width="32" height="32" alt="Python" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Python</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/typescript" width="32" height="32" alt="TypeScript" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">TypeScript</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/graphql" width="32" height="32" alt="GraphQL" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">GraphQL</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/postgresql" width="32" height="32" alt="PostgreSQL" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">PostgreSQL</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/redis" width="32" height="32" alt="Redis" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Redis</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/docker" width="32" height="32" alt="Docker" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Docker</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" width="32" height="32" alt="AWS" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">AWS</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 ← derecha -->
+  <div class="mq-row" style="overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%);border-bottom:1px solid rgba(178,213,229,.07);margin-bottom:1px;">
+    <div class="mq-r" style="display:flex;width:max-content;">
+      <div style="display:flex;">
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/figma" width="32" height="32" alt="Figma" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Figma</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/kubernetes" width="32" height="32" alt="Kubernetes" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Kubernetes</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/mongodb" width="32" height="32" alt="MongoDB" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">MongoDB</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/vite" width="32" height="32" alt="Vite" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Vite</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/tailwindcss" width="32" height="32" alt="Tailwind" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Tailwind</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/prisma" width="32" height="32" alt="Prisma" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Prisma</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/supabase" width="32" height="32" alt="Supabase" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Supabase</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/greensock" width="32" height="32" alt="GSAP" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">GSAP</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/framer" width="32" height="32" alt="Framer" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Framer</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/threedotjs" width="32" height="32" alt="Three.js" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Three.js</span></div>
+      </div>
+      <div style="display:flex;" aria-hidden="true">
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/figma" width="32" height="32" alt="Figma" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Figma</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/kubernetes" width="32" height="32" alt="Kubernetes" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Kubernetes</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/mongodb" width="32" height="32" alt="MongoDB" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">MongoDB</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/vite" width="32" height="32" alt="Vite" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Vite</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/tailwindcss" width="32" height="32" alt="Tailwind" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Tailwind</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/prisma" width="32" height="32" alt="Prisma" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Prisma</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/supabase" width="32" height="32" alt="Supabase" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Supabase</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/greensock" width="32" height="32" alt="GSAP" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">GSAP</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/framer" width="32" height="32" alt="Framer" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Framer</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/threedotjs" width="32" height="32" alt="Three.js" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Three.js</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 3 → izquierda (más lenta) -->
+  <div class="mq-row" style="overflow:hidden;mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%);border-bottom:1px solid rgba(178,213,229,.07);">
+    <div class="mq-l2" style="display:flex;width:max-content;">
+      <div style="display:flex;">
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/git" width="32" height="32" alt="Git" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Git</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/linux" width="32" height="32" alt="Linux" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Linux</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/vercel" width="32" height="32" alt="Vercel" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Vercel</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/stripe" width="32" height="32" alt="Stripe" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Stripe</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/jest" width="32" height="32" alt="Jest" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Jest</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/githubactions" width="32" height="32" alt="GH Actions" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">GH Actions</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/nginx" width="32" height="32" alt="Nginx" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Nginx</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/webpack" width="32" height="32" alt="Webpack" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Webpack</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/sass" width="32" height="32" alt="Sass" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Sass</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/css" width="32" height="32" alt="CSS3" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">CSS3</span></div>
+      </div>
+      <div style="display:flex;" aria-hidden="true">
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/git" width="32" height="32" alt="Git" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Git</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/linux" width="32" height="32" alt="Linux" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Linux</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/vercel" width="32" height="32" alt="Vercel" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Vercel</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/stripe" width="32" height="32" alt="Stripe" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Stripe</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/jest" width="32" height="32" alt="Jest" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Jest</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/githubactions" width="32" height="32" alt="GH Actions" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">GH Actions</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/nginx" width="32" height="32" alt="Nginx" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Nginx</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/webpack" width="32" height="32" alt="Webpack" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Webpack</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/sass" width="32" height="32" alt="Sass" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">Sass</span></div>
+        <div class="stack-item" style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 44px;border-right:1px solid rgba(178,213,229,.07);min-width:130px;"><img class="si-icon" loading="lazy" src="https://cdn.simpleicons.org/css" width="32" height="32" alt="CSS3" decoding="async"><span class="si-label" style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.1em;color:rgba(245,245,245,.55);transition:color .25s;">CSS3</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact" class="sec-pad" style="padding:128px 64px;">
+  <div id="contact-inner" style="max-width:900px;margin:0 auto;text-align:center;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;">
+      <span style="width:24px;height:1px;background:#B2D5E5;display:inline-block;"></span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:#B2D5E5;">05 / CONTACT</span>
+      <span style="width:24px;height:1px;background:#B2D5E5;display:inline-block;"></span>
+    </div>
+    <h2 style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2.8rem,8vw,6.5rem);font-weight:800;letter-spacing:-.03em;line-height:.92;margin-bottom:48px;">
+      Let's build<br><span class="tg">something.</span>
+    </h2>
+    <button id="email-btn" type="button" aria-label="Copy email address arielvisuals.me@outlook.com" style="display:inline-flex;align-items:center;gap:12px;margin-bottom:56px;cursor:none;padding:4px;background:none;border:none;">
+      <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1rem,2.5vw,1.6rem);font-weight:700;background:linear-gradient(135deg,#C6FF34,#B2D5E5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">arielvisuals.me@outlook.com</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:rgba(245,245,245,.55);border:1px solid rgba(178,213,229,.18);padding:4px 10px;border-radius:100px;transition:all .2s;">copy</span>
+      <span id="copy-ok" style="font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#C6FF34;opacity:0;transition:opacity .3s;">Copied!</span>
+    </button>
+    <div class="card-glass" style="padding:48px;text-align:left;margin-bottom:48px;">
+      <p style="font-family:'Sora',sans-serif;font-size:.95rem;color:rgba(245,245,245,.55);line-height:1.85;margin-bottom:36px;">
+        Open to freelance projects, full-time roles, and collaborations that push the boundary of what's possible on the web.
+      </p>
+      <form id="contact-form" class="form-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <input type="text" name="name" aria-label="Your name" autocomplete="name" required placeholder="Your name" />
+        <input type="email" name="email" aria-label="Your email" autocomplete="email" required placeholder="Your email" />
+        <textarea name="message" aria-label="Tell me about your project" required placeholder="Tell me about your project..." style="resize:none;height:110px;grid-column:span 2;"></textarea>
+        <button type="submit" class="btn-primary" data-magnetic style="grid-column:span 2;justify-content:center;">Send Message →</button>
+        <p id="form-status" role="status" aria-live="polite" style="grid-column:span 2;margin:0;font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.08em;color:#C6FF34;min-height:1em;"></p>
+      </form>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:40px;">
+      <a href="https://github.com/arielgonzalez" target="_blank" rel="noopener" class="social-link">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub
+      </a>
+      <a href="https://linkedin.com/in/arielgonzalez" target="_blank" rel="noopener" class="social-link">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>LinkedIn
+      </a>
+      <a href="https://dribbble.com/arielgonzalez" target="_blank" rel="noopener" class="social-link">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24C5.385 24 0 18.615 0 12S5.385 0 12 0s12 5.385 12 12-5.385 12-12 12zm10.12-10.358c-.35-.11-3.17-.953-6.384-.438 1.34 3.684 1.887 6.684 1.992 7.308 2.3-1.555 3.936-4.02 4.395-6.87zm-6.115 7.808c-.153-.9-.75-4.032-2.19-7.77l-.066.02c-5.79 2.015-7.86 6.017-8.04 6.4 1.73 1.358 3.92 2.166 6.29 2.166 1.42 0 2.77-.29 4.01-.814zm-9.98-2.932c.24-.418 3.11-5.22 8.364-6.902.138-.045.276-.084.418-.12-.168-.38-.345-.754-.53-1.118-5.07 1.517-9.99 1.462-10.42 1.453a8.748 8.748 0 0 0-.004.224c0 2.415.91 4.63 2.4 6.317zm-2.17-7.876c.44.008 4.95.02 9.7-1.27C11.83 4.4 10.04 2.2 9.765 1.925a9.917 9.917 0 0 0-7.785 3.67zm4.93-8.068c.27.29 2.12 2.482 3.81 5.882 3.63-1.362 5.17-3.426 5.35-3.683A9.928 9.928 0 0 0 12 1.965c-1.04 0-2.04.15-2.98.43z"/></svg>Dribbble
+      </a>
+    </div>
+  </div>
+</section>
+
+<div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(178,213,229,.12),transparent);"></div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer style="padding:28px 64px;display:flex;align-items:center;justify-content:space-between;">
+  <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;color:#C6FF34;font-weight:500;">AG</span>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:rgba(245,245,245,.55);">© 2026 Ariel González</span>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.06em;color:rgba(245,245,245,.55);">Engineered with obsession.</span>
+</footer>
+
+<script>
+// Respected by every JS-driven animation below (CSS ones are handled in the stylesheet)
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ── GRAIN ──────────────────────────────────────────
+(function(){
+  const el = document.getElementById('grain');
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='250' height='250' filter='url(#n)'/></svg>`;
+  el.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+})();
+
+// ── CURSOR ─────────────────────────────────────────
+(function(){
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = -200, my = -200, rx = -200, ry = -200, rafId = null;
+  const lerp = (a,b,t) => a+(b-a)*t;
+  // Reduced motion: the ring snaps to the pointer instead of trailing it
+  const ease = REDUCED_MOTION ? 1 : .1;
+  function tick(){
+    rx=lerp(rx,mx,ease); ry=lerp(ry,my,ease);
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    // Stop the loop once the ring has settled; mousemove restarts it
+    if(Math.abs(rx-mx) < .5 && Math.abs(ry-my) < .5){ rafId = null; return; }
+    rafId = requestAnimationFrame(tick);
+  }
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx+'px'; dot.style.top = my+'px';
+    if(rafId === null) rafId = requestAnimationFrame(tick);
+  });
+  document.querySelectorAll('a,button,[data-magnetic]').forEach(el => {
+    el.addEventListener('mouseenter',()=>{ dot.style.width='4px'; dot.style.height='4px'; ring.style.width='52px'; ring.style.height='52px'; ring.style.borderColor='rgba(198,255,52,.75)'; });
+    el.addEventListener('mouseleave',()=>{ dot.style.width='8px'; dot.style.height='8px'; ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(198,255,52,.45)'; });
+  });
+})();
+
+// ── SCROLL PROGRESS ────────────────────────────────
+(function(){
+  const bar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', ()=>{
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (window.scrollY/max)*100 : 0) + '%';
+  }, { passive:true });
+})();
+
+// ── NAV SCROLL ─────────────────────────────────────
+(function(){
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', ()=>{
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive:true });
+})();
+
+// ── CANVAS ─────────────────────────────────────────
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  const resize = () => { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; };
+  resize(); window.addEventListener('resize', resize);
+  const shapes = Array.from({length:14}, ()=>({
+    x: Math.random()*1400, y: Math.random()*800,
+    r: 30+Math.random()*90, vx: (Math.random()-.5)*.25, vy: (Math.random()-.5)*.25,
+    a: Math.random()*Math.PI*2, av: (Math.random()-.5)*.004,
+    opacity: .018+Math.random()*.055, type: Math.floor(Math.random()*3),
+    color: Math.random()>.55?'#C6FF34':'#B2D5E5'
+  }));
+  function frame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    shapes.forEach(s=>{
+      s.x+=s.vx; s.y+=s.vy; s.a+=s.av;
+      if(s.x<-s.r) s.x=canvas.width+s.r; if(s.x>canvas.width+s.r) s.x=-s.r;
+      if(s.y<-s.r) s.y=canvas.height+s.r; if(s.y>canvas.height+s.r) s.y=-s.r;
+      ctx.save(); ctx.globalAlpha=s.opacity; ctx.strokeStyle=s.color; ctx.lineWidth=1;
+      if(s.type===0){
+        ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.stroke();
+        ctx.beginPath(); ctx.arc(s.x,s.y,s.r*.55,0,Math.PI*2); ctx.globalAlpha=s.opacity*.4; ctx.stroke();
+      } else if(s.type===1){
+        ctx.translate(s.x,s.y); ctx.rotate(s.a);
+        ctx.beginPath(); ctx.moveTo(-s.r,0); ctx.lineTo(s.r,0); ctx.moveTo(0,-s.r); ctx.lineTo(0,s.r); ctx.stroke();
+        const b=s.r*.38; ctx.globalAlpha=s.opacity*.45; ctx.beginPath();
+        ctx.moveTo(-s.r+b,-s.r); ctx.lineTo(-s.r,-s.r); ctx.lineTo(-s.r,-s.r+b);
+        ctx.moveTo(s.r-b,s.r); ctx.lineTo(s.r,s.r); ctx.lineTo(s.r,s.r-b); ctx.stroke();
+      } else {
+        ctx.translate(s.x,s.y); ctx.rotate(s.a);
+        ctx.beginPath(); ctx.arc(0,0,s.r,0,Math.PI*1.5); ctx.stroke();
+      }
+      ctx.restore();
+    });
+  }
+
+  if(REDUCED_MOTION){
+    frame(); // single static frame, no loop
+    return;
+  }
+
+  // Only animate while the hero is on screen
+  let running = false, rafId = null;
+  function loop(){ frame(); if(running) rafId = requestAnimationFrame(loop); }
+  const io = new IntersectionObserver(entries => {
+    const visible = entries[0].isIntersecting;
+    if(visible && !running){ running = true; loop(); }
+    else if(!visible && running){ running = false; cancelAnimationFrame(rafId); }
+  });
+  io.observe(canvas);
+})();
+
+// ── GSAP HERO ANIM ─────────────────────────────────
+// ── macOS DOCK — MAGNIFICATION + GENIE EFFECT ──────
+// GSAP loads deferred, so this waits for DOMContentLoaded (deferred scripts run first)
+document.addEventListener('DOMContentLoaded', function(){
+  // No GSAP (CDN blocked/offline), reduced motion, or mobile: reveal everything immediately
+  if(typeof gsap === 'undefined' || REDUCED_MOTION || window.matchMedia('(max-width: 768px)').matches) {
+    const win = document.getElementById('mac-window');
+    if(win) win.style.opacity = '1';
+    ['h-name','h-eye','h-tag','h-cta','h-scroll'].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el){ el.style.opacity='1'; el.style.transform='none'; }
+    });
+    return;
+  }
+
+  // ── Simulated cursor SVG ──────────────────────────
+  const cur = document.createElement('div');
+  cur.id = 'sim-cursor';
+  cur.innerHTML = `<svg width="20" height="24" viewBox="0 0 20 24" fill="none">
+    <path d="M3 2L3 19L7.5 14.5L10.5 22L13 21L10 13.5L17 13.5Z"
+      fill="white" stroke="rgba(0,0,0,.55)" stroke-width="1.1" stroke-linejoin="round"/>
+  </svg>`;
+  cur.style.cssText = 'position:fixed;z-index:99999;pointer-events:none;opacity:0;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));will-change:transform;';
+  document.body.appendChild(cur);
+
+  // ── Click ripple ──────────────────────────────────
+  const ripple = document.createElement('div');
+  ripple.style.cssText = 'position:fixed;z-index:99998;pointer-events:none;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.65);transform:translate(-50%,-50%) scale(0);opacity:0;';
+  document.body.appendChild(ripple);
+
+  const icons  = Array.from(document.querySelectorAll('.dock-icon'));
+  const agIcon = document.getElementById('dock-ag');
+  const BASE   = 52, MAX = 92, RADIUS = 120;
+
+  // ── Smooth magnification via gsap.to with overwrite ─
+  icons.forEach(icon => { icon.style.transformOrigin = 'bottom center'; });
+
+  // Cache original center positions once dock is rendered
+  let origCenters = null;
+  function cacheOrigins() {
+    if(origCenters) return;
+    origCenters = icons.map(icon => {
+      const r = icon.getBoundingClientRect();
+      return r.left + r.width * .5;
+    });
+  }
+
+  function applyMag(cx) {
+    cacheOrigins();
+    // First pass: compute scales
+    const scales = icons.map((icon, i) => {
+      const icx  = origCenters[i];
+      const dist = Math.abs(cx - icx);
+      return dist < RADIUS
+        ? 1 + (MAX/BASE - 1) * Math.pow(Math.max(0, 1 - dist/RADIUS), 1.55)
+        : 1;
+    });
+
+    // Second pass: compute x-translations so icons spread apart
+    // Each icon's extra width pushes its right neighbours right, left neighbours left
+    const extras = scales.map(s => (s - 1) * BASE * .5); // extra half-width each side
+
+    const translateX = new Array(icons.length).fill(0);
+    for(let i = 0; i < icons.length; i++) {
+      const pushRight = extras[i];
+      // Push icons to the right of i
+      for(let j = i + 1; j < icons.length; j++) translateX[j] += pushRight;
+      // Push icons to the left of i
+      for(let j = i - 1; j >= 0; j--) translateX[j] -= pushRight;
+    }
+
+    icons.forEach((icon, i) => {
+      gsap.to(icon, {
+        scale: scales[i],
+        x: translateX[i],
+        duration: 0.22,
+        ease: 'power2.out',
+        overwrite: 'auto',
+        transformOrigin: 'bottom center'
+      });
+    });
+  }
+
+  function resetMag() {
+    icons.forEach(icon => gsap.to(icon, {
+      scale:1, x:0, duration:.4,
+      ease:'elastic.out(.7,.5)',
+      transformOrigin:'bottom center'
+    }));
+  }
+
+  // ── Fluid window open — scale+rise from dock ───────
+  function openWindow(win, onDone) {
+    const total = .72;
+    gsap.set(win, {
+      opacity: 0,
+      scale: 0.74,
+      y: 62,
+      filter: 'blur(14px)',
+      transformOrigin: '50% 100%',
+      willChange: 'transform, opacity, filter'
+    });
+    gsap.to(win, {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: total,
+      ease: 'power4.out',
+      clearProps: 'willChange,filter',
+      onComplete() {
+        win.style.willChange = 'auto';
+        gsap.set(win, { transformOrigin: '50% 50%', filter: '' });
+        if(onDone) onDone();
+      }
+    });
+    // Glow pulse as window settles
+    gsap.fromTo(win,
+      { boxShadow: '0 0 0 1px rgba(198,255,52,.0), 0 48px 128px rgba(0,0,0,.9)' },
+      { boxShadow: '0 0 0 1px rgba(198,255,52,.18), 0 48px 128px rgba(0,0,0,.9)',
+        duration: .42, ease: 'power2.out', delay: .34, yoyo: true, repeat: 1 }
+    );
+    return total;
+  }
+
+  // ── Main timeline ─────────────────────────────────
+  const tl = gsap.timeline();
+
+  // T=0.4 — Dock slides up
+  tl.fromTo('#macos-dock',
+    { opacity:0, y:64, scale:.93 },
+    { opacity:1, y:0, scale:1, duration:.78, ease:'power4.out' }, 0.18)
+
+  // T=1.0 — Cursor setup: appears top-right, natural starting position
+  .call(()=>{
+    origCenters = null;
+    icons.forEach(icon => { gsap.set(icon, { scale:1, x:0 }); });
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    // Start: mid-right area — natural resting position
+    gsap.set(cur, { left: vw * .68, top: vh * .48, opacity:0, rotation:0 });
+    gsap.to(cur,  { opacity:1, duration:.3, ease:'power2.out' });
+  }, [], 1.0)
+
+  // T=1.3 — Single continuous bezier arc: top-right → dock → AG
+  .call(()=>{
+    const vw  = window.innerWidth;
+    const vh  = window.innerHeight;
+    const agR = agIcon.getBoundingClientRect();
+    const r0  = icons[0].getBoundingClientRect();
+
+    // Pre-cache centers while dock is settled
+    origCenters = icons.map(icon => {
+      const r = icon.getBoundingClientRect();
+      return r.left + r.width * .5;
+    });
+
+    // Bezier control points
+    // P0 = start (top-right), P1 = control (pulls path leftward toward dock),
+    // P2 = end (AG center)
+    const P0 = { x: vw * .68,  y: vh * .48 };
+    const P1 = { x: vw * .18,  y: vh * .82 }; // control: pulls arc left+down
+    const P2 = { x: agR.left + agR.width * .5, y: agR.top + agR.height * .44 };
+
+    // Bezier helper
+    function bezier(t, p0, p1, p2) {
+      const mt = 1 - t;
+      return {
+        x: mt*mt*p0.x + 2*mt*t*p1.x + t*t*p2.x,
+        y: mt*mt*p0.y + 2*mt*t*p1.y + t*t*p2.y
+      };
+    }
+    // Bezier derivative for rotation
+    function bezierDeriv(t, p0, p1, p2) {
+      const mt = 1 - t;
+      return {
+        x: 2*(mt*(p1.x-p0.x) + t*(p2.x-p1.x)),
+        y: 2*(mt*(p1.y-p0.y) + t*(p2.y-p1.y))
+      };
+    }
+
+    const totalDur = 1.1;
+    const proxy = { t: 0 };
+    let lastT = 0;
+
+    gsap.to(proxy, {
+      t: 1,
+      duration: totalDur,
+      ease: 'power2.inOut',
+      onUpdate() {
+        const t   = proxy.t;
+        const pos = bezier(t, P0, P1, P2);
+        const d   = bezierDeriv(t, P0, P1, P2);
+
+        // Cursor tilt: rotate to face direction of travel
+        const angle = Math.atan2(d.y, d.x) * (180 / Math.PI) - 45;
+        // Clamp tilt: max ±30deg, ease in/out near start+end
+        const tilt = Math.max(-30, Math.min(30, angle * .55));
+
+        gsap.set(cur, { left: pos.x, top: pos.y, rotation: tilt });
+
+        // Magnification only kicks in when cursor enters dock proximity
+        const dockR = document.getElementById('dock-inner').getBoundingClientRect();
+        if(pos.y > dockR.top - 60) {
+          applyMag(pos.x);
+        }
+
+        lastT = t;
+      },
+      onComplete() {
+        // Cursor settled on AG — straighten tilt, micro-tremor
+        gsap.to(cur, { rotation: 0, duration:.2, ease:'power2.out' });
+        gsap.set(agIcon, { scale:1.92 });
+
+        // Micro-tremor: tiny random movements simulating hand stillness
+        const ox = P2.x, oy = P2.y;
+        gsap.timeline()
+          .to(cur, { left:ox+3,  top:oy-2,  duration:.14, ease:'sine.inOut' })
+          .to(cur, { left:ox+1,  top:oy+1.5,duration:.12, ease:'sine.inOut' })
+          .to(cur, { left:ox+2.5,top:oy-1,  duration:.11, ease:'sine.inOut' })
+          .to(cur, { left:ox+2,  top:oy,    duration:.15, ease:'power2.out'  });
+      }
+    });
+  }, [], 1.3)
+
+  // Label appears above AG
+  .call(()=>{ document.getElementById('dock-label').style.opacity = '1'; }, [], 2.86)
+
+  // Click: cursor dips, ripple fires
+  .call(()=>{
+    document.getElementById('dock-label').style.opacity = '0';
+    const agR = agIcon.getBoundingClientRect();
+    const cx  = agR.left + agR.width  * .5;
+    const cy  = agR.top  + agR.height * .5;
+    gsap.set(ripple, { left:cx, top:cy });
+    gsap.to(cur, { scale:.82, duration:.07, yoyo:true, repeat:1 });
+    gsap.fromTo(ripple, { opacity:.85, scale:0 }, { opacity:0, scale:2.4, duration:.42, ease:'power2.out' });
+  }, [], 3.12)
+
+  // AG bounce (3 hops, decreasing amplitude)
+  .to(agIcon, { y:-20, duration:.13, ease:'power2.out' }, 3.24)
+  .to(agIcon, { y:0,   duration:.11, ease:'bounce.out' }, 3.37)
+  .to(agIcon, { y:-11, duration:.10, ease:'power2.out' }, 3.48)
+  .to(agIcon, { y:0,   duration:.09, ease:'bounce.out' }, 3.58)
+  .to(agIcon, { y:-5,  duration:.08, ease:'power2.out' }, 3.67)
+  .to(agIcon, { y:0,   duration:.07, ease:'bounce.out' }, 3.75)
+
+  // Cursor + dock fade out
+  .to(cur,           { opacity:0, duration:.38, ease:'power3.in' }, 3.76)
+  .to('#macos-dock', { opacity:0, y:60, duration:.55, ease:'power3.in' }, 3.80)
+
+  // Window opens
+  .call(()=>{
+    const win    = document.getElementById('mac-window');
+    const winDur = openWindow(win, null);
+    const base   = 3.95 + winDur + .06;
+    const d0 = base - 3.95;
+    gsap.fromTo('#h-name',
+      { opacity:0, y:50, filter:'blur(12px)' },
+      { opacity:1, y:0, filter:'blur(0px)', duration:1.08, ease:'expo.out',    clearProps:'filter', delay: d0 });
+    gsap.fromTo('#h-eye',
+      { opacity:0, y:16, filter:'blur(6px)' },
+      { opacity:1, y:0, filter:'blur(0px)', duration:.72, ease:'power3.out',   clearProps:'filter', delay: d0 + .30 });
+    gsap.fromTo('#h-tag',
+      { opacity:0, y:16, filter:'blur(6px)' },
+      { opacity:1, y:0, filter:'blur(0px)', duration:.72, ease:'power3.out',   clearProps:'filter', delay: d0 + .48 });
+    gsap.fromTo('#h-cta',
+      { opacity:0, y:14 },
+      { opacity:1, y:0,                     duration:.68, ease:'back.out(1.4)',                      delay: d0 + .64 });
+    gsap.fromTo('#h-scroll',
+      { opacity:0 },
+      { opacity:1,                           duration:.52,                                            delay: d0 + .86 });
+  }, [], 3.95);
+
+});
+
+// ── SCROLL REVEALS ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || REDUCED_MOTION) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to('#h-scroll',{y:10,repeat:-1,yoyo:true,duration:1.3,ease:'power2.inOut',delay:4.5});
+
+  // Content is visible by default; reveals animate FROM a hidden state so a
+  // failed GSAP load never leaves sections blank.
+  const rv = (sel, tr, opts={}) => gsap.from(sel, {opacity:0,y:opts.y||50,rotation:opts.rot||0,duration:opts.dur||.9,ease:opts.ease||'power3.out',stagger:opts.st||0,scrollTrigger:{trigger:tr||sel,start:'top 82%',toggleActions:'play none none none'}});
+  rv('#about-img','#about',{ease:'power2.out',dur:1.0,rot:-3});
+  rv('#about-txt','#about');
+  rv('#work-hdr');
+  rv('#proc-hdr');
+  rv('#stack-hdr');
+  rv('#contact-inner');
+  gsap.from('.proj-row',{opacity:0,y:32,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'#proj-list',start:'top 80%'}});
+  gsap.from('.proc-step',{opacity:0,y:40,stagger:.12,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 72%'}});
+  gsap.from('.skill-tag',{opacity:0,scale:.75,stagger:.04,duration:.5,ease:'back.out(1.5)',scrollTrigger:{trigger:'#skills-wrap',start:'top 85%'}});
+});
+
+// ── MAGNETIC ───────────────────────────────────────
+if(!REDUCED_MOTION) document.querySelectorAll('[data-magnetic]').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const dx = (e.clientX-(r.left+r.width/2))*.32;
+    const dy = (e.clientY-(r.top+r.height/2))*.32;
+    btn.style.transform = `translate(${dx}px,${dy}px)`;
+    btn.style.transition = 'transform .1s ease';
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0,0)';
+    btn.style.transition = 'transform .6s cubic-bezier(.23,1,.32,1)';
+  });
+});
+document.getElementById('btn-work').addEventListener('click', () => {
+  document.getElementById('work').scrollIntoView({behavior:'smooth'});
+});
+
+// ── CARD TILT ──────────────────────────────────────
+if(!REDUCED_MOTION) document.querySelectorAll('[data-tilt]').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const rx = ((e.clientY-r.top-r.height/2)/(r.height/2))*-7;
+    const ry = ((e.clientX-r.left-r.width/2)/(r.width/2))*7;
+    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px) scale(1.012)`;
+    card.style.transition = 'transform .08s ease';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+    card.style.transition = 'transform .55s cubic-bezier(.23,1,.32,1)';
+  });
+});
+
+// ── PROJECT LIST HOVER ─────────────────────────────
+// Waits for DOMContentLoaded because the hover animations need GSAP (deferred)
+document.addEventListener('DOMContentLoaded', function(){
+  if(typeof gsap === 'undefined' || REDUCED_MOTION) return;
+  const projects = [
+    {
+      cat:'FULLSTACK', catColor:'#C6FF34',
+      title:'NexaFlow Platform',
+      desc:'Real-time workflow automation with visual pipeline builder and team collaboration tools.',
+      tags:['React','Node.js','PostgreSQL'],
+      bg:'linear-gradient(135deg,#050e1e,#0c1e38)',
+      thumb:`<svg viewBox="0 0 88 88" width="88" height="88"><defs><linearGradient id="t0" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C6FF34" stop-opacity=".3"/><stop offset="100%" stop-color="#B2D5E5" stop-opacity=".1"/></linearGradient></defs><rect width="88" height="88" fill="#050e1e"/><rect x="10" y="10" width="68" height="68" rx="5" fill="none" stroke="rgba(178,213,229,.2)" stroke-width="1"/><rect x="18" y="22" width="32" height="5" rx="2.5" fill="rgba(198,255,52,.35)"/><rect x="18" y="33" width="50" height="3" rx="1.5" fill="rgba(178,213,229,.2)"/><rect x="18" y="41" width="38" height="3" rx="1.5" fill="rgba(178,213,229,.14)"/><rect x="18" y="52" width="24" height="16" rx="8" fill="url(#t0)" stroke="rgba(198,255,52,.4)" stroke-width="1"/></svg>`
+    },
+    {
+      cat:'DESIGN', catColor:'#B2D5E5',
+      title:'Orbit Design System',
+      desc:'200+ component library for SaaS — tokens, dark/light mode, accessibility-first.',
+      tags:['Figma','Storybook','React'],
+      bg:'linear-gradient(135deg,#120820,#1e0f32)',
+      thumb:`<svg viewBox="0 0 88 88" width="88" height="88"><rect width="88" height="88" fill="#120820"/><circle cx="44" cy="44" r="32" fill="none" stroke="rgba(198,255,52,.13)" stroke-width="1" stroke-dasharray="5 9"/><circle cx="44" cy="44" r="21" fill="none" stroke="rgba(178,213,229,.2)" stroke-width="1"/><circle cx="44" cy="44" r="10" fill="rgba(198,255,52,.07)" stroke="rgba(198,255,52,.35)" stroke-width="1.5"/><line x1="12" y1="44" x2="76" y2="44" stroke="rgba(178,213,229,.1)" stroke-width="1"/><line x1="44" y1="12" x2="44" y2="76" stroke="rgba(178,213,229,.1)" stroke-width="1"/><text x="44" y="48" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(198,255,52,.65)">◎</text></svg>`
+    },
+    {
+      cat:'BACKEND', catColor:'rgba(245,245,245,.65)',
+      title:'Pulse API Gateway',
+      desc:'High-performance gateway with rate limiting, auth, and observability for microservices.',
+      tags:['Python','FastAPI','Redis'],
+      bg:'linear-gradient(135deg,#040f04,#081508)',
+      thumb:`<svg viewBox="0 0 88 88" width="88" height="88"><rect width="88" height="88" fill="#040f04"/><text x="10" y="30" font-family="monospace" font-size="7" fill="rgba(245,245,245,.3)">$ start</text><text x="10" y="44" font-family="monospace" font-size="7" fill="rgba(198,255,52,.7)">✓ ready</text><text x="10" y="58" font-family="monospace" font-size="7" fill="rgba(178,213,229,.5)">→ :3000</text><text x="10" y="72" font-family="monospace" font-size="8" fill="rgba(245,245,245,.2)">▊</text></svg>`
+    },
+    {
+      cat:'FRONTEND', catColor:'#B2D5E5',
+      title:'Vanta Dashboard',
+      desc:'Data visualization dashboard — 40+ chart types, real-time streaming, export engine.',
+      tags:['Next.js','D3.js','TypeScript'],
+      bg:'linear-gradient(135deg,#141006,#201800)',
+      thumb:`<svg viewBox="0 0 88 88" width="88" height="88"><rect width="88" height="88" fill="#141006"/><rect x="9" y="9" width="70" height="70" rx="5" fill="none" stroke="rgba(198,255,52,.1)" stroke-width="1"/><rect x="9" y="9" width="70" height="16" fill="rgba(198,255,52,.04)"/><circle cx="19" cy="17" r="3.5" fill="rgba(198,255,52,.3)"/><circle cx="28" cy="17" r="3.5" fill="rgba(178,213,229,.22)"/><circle cx="37" cy="17" r="3.5" fill="rgba(245,245,245,.12)"/><rect x="15" y="32" width="16" height="28" rx="2.5" fill="rgba(198,255,52,.25)"/><rect x="36" y="40" width="16" height="20" rx="2.5" fill="rgba(198,255,52,.18)"/><rect x="57" y="26" width="16" height="34" rx="2.5" fill="rgba(198,255,52,.35)"/></svg>`
+    },
+    {
+      cat:'FULLSTACK', catColor:'#C6FF34',
+      title:'Aether Social Platform',
+      desc:'Creator-first network with algorithm-transparent feed, monetization tools, and analytics on a microservices backbone.',
+      tags:['React Native','GraphQL','AWS','Kubernetes'],
+      bg:'linear-gradient(135deg,#020a16,#04111f)',
+      thumb:`<svg viewBox="0 0 88 88" width="88" height="88"><defs><linearGradient id="tg5" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#C6FF34"/><stop offset="100%" stop-color="#B2D5E5"/></linearGradient></defs><rect width="88" height="88" fill="#020a16"/><circle cx="44" cy="44" r="30" fill="none" stroke="rgba(198,255,52,.07)" stroke-width="1"/><text x="44" y="51" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="800" fill="url(#tg5)" letter-spacing="-1">AETHER</text><circle cx="74" cy="72" r="4" fill="#C6FF34" opacity=".65"/></svg>`
+    }
+  ];
+
+  const preview  = document.getElementById('proj-preview');
+  const prevThumb= document.getElementById('prev-thumb');
+  const prevCat  = document.getElementById('prev-cat');
+  const prevTitle= document.getElementById('prev-title');
+  const prevDesc = document.getElementById('prev-desc');
+  const prevTags = document.getElementById('prev-tags');
+
+  let cardX=0, cardY=0, targetX=0, targetY=0, rafId=null, isOpen=false;
+
+  const lerp = (a,b,t) => a+(b-a)*t;
+
+  function tick(){
+    cardX = lerp(cardX, targetX, 0.12);
+    cardY = lerp(cardY, targetY, 0.12);
+    preview.style.left = Math.round(cardX)+'px';
+    preview.style.top  = Math.round(cardY)+'px';
+    if(isOpen) rafId = requestAnimationFrame(tick);
+  }
+
+  function populate(idx){
+    const p = projects[idx];
+    prevThumb.style.background = p.bg;
+    prevThumb.style.position = 'relative';
+    prevThumb.style.overflow = 'hidden';
+    prevThumb.innerHTML = p.thumb;
+    prevCat.innerHTML   = `<span style="color:${p.catColor};font-family:'JetBrains Mono',monospace;font-size:.55rem;letter-spacing:.14em;">${p.cat}</span>`;
+    prevTitle.textContent = p.title;
+    prevDesc.textContent  = p.desc;
+    prevTags.innerHTML = p.tags.map(t=>`<span class="tech-tag">${t}</span>`).join('');
+  }
+
+  document.querySelectorAll('.proj-row').forEach(row => {
+    const idx   = parseInt(row.dataset.index);
+    const title = row.querySelector('.proj-title');
+    const num   = row.querySelector('.proj-num');
+    const arrow = row.querySelector('.proj-arrow');
+    const cat   = row.querySelector('.proj-cat');
+    const p     = projects[idx];
+
+    row.addEventListener('mouseenter', e => {
+      isOpen = true;
+      populate(idx);
+
+      // Position card near mouse before animating in
+      let x = e.clientX + 32;
+      let y = e.clientY - 80;
+      if(x + 350 > window.innerWidth) x = e.clientX - 358;
+      if(y < 8) y = 8;
+      if(y + 170 > window.innerHeight) y = window.innerHeight - 178;
+      cardX = targetX = x; cardY = targetY = y;
+      preview.style.left = x+'px'; preview.style.top = y+'px';
+
+      // Smooth entrance — scale+fade+rise with GSAP
+      gsap.killTweensOf(preview);
+      gsap.fromTo(preview,
+        { opacity:0, scale:.86, y:18, filter:'blur(6px)' },
+        { opacity:1, scale:1,   y:0,  filter:'blur(0px)',
+          duration:.42, ease:'expo.out' }
+      );
+
+      gsap.to(title,  { color:'#F5F5F5',           letterSpacing:'-.04em',  duration:.22, ease:'power2.out' });
+      gsap.to(num,    { color:p.catColor,                                    duration:.22, ease:'power2.out' });
+      gsap.to(arrow,  { color:p.catColor, rotation:45, scale:1.25,          duration:.28, ease:'back.out(1.4)' });
+      gsap.to(cat,    { opacity:1,                                           duration:.2  });
+      gsap.to(row,    { borderColor:'rgba(178,213,229,.22)',                 duration:.22 });
+
+      document.querySelectorAll('.proj-row').forEach(r => {
+        if(r !== row) gsap.to(r.querySelector('.proj-title'), { opacity:.22, duration:.22 });
+      });
+
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(tick);
+    });
+
+    row.addEventListener('mouseleave', () => {
+      isOpen = false;
+      cancelAnimationFrame(rafId); rafId = null;
+
+      // Smooth exit — shrink+fade+drop
+      gsap.killTweensOf(preview);
+      gsap.to(preview, {
+        opacity:0, scale:.88, y:14, filter:'blur(4px)',
+        duration:.32, ease:'power3.in'
+      });
+
+      gsap.to(title,  { color:'rgba(245,245,245,.55)', letterSpacing:'-.025em', duration:.22, ease:'power2.out' });
+      gsap.to(num,    { color:'rgba(245,245,245,.5)',                           duration:.22 });
+      gsap.to(arrow,  { color:'rgba(245,245,245,.5)',  rotation:0, scale:1,      duration:.22, ease:'power2.out' });
+      gsap.to(cat,    { opacity:0,                                               duration:.18 });
+      gsap.to(row,    { borderColor:'rgba(178,213,229,.08)',                     duration:.22 });
+      document.querySelectorAll('.proj-title').forEach(t => gsap.to(t, { opacity:1, duration:.22 }));
+    });
+
+    row.addEventListener('mousemove', e => {
+      let x = e.clientX + 32;
+      let y = e.clientY - 80;
+      if(x + 350 > window.innerWidth) x = e.clientX - 358;
+      if(y < 8) y = 8;
+      if(y + 170 > window.innerHeight) y = window.innerHeight - 178;
+      targetX = x; targetY = y;
+    });
+  });
+});
+
+// ── MOBILE NAV ─────────────────────────────────────
+(function(){
+  const btn    = document.getElementById('nav-hamburger');
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if(!btn || !drawer) return;
+
+  function setOpen(isOpen){
+    drawer.classList.toggle('open', isOpen);
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if(isOpen){
+      const first = drawer.querySelector('a');
+      if(first) first.focus();
+    } else {
+      btn.focus();
+    }
+  }
+
+  btn.addEventListener('click', () => setOpen(!drawer.classList.contains('open')));
+  drawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  // Escape closes; Tab stays inside the dialog while open
+  document.addEventListener('keydown', e => {
+    if(!drawer.classList.contains('open')) return;
+    if(e.key === 'Escape'){ setOpen(false); return; }
+    if(e.key === 'Tab'){
+      const focusables = drawer.querySelectorAll('a');
+      const first = focusables[0], last = focusables[focusables.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
+  });
+})();
+
+// ── EMAIL COPY ─────────────────────────────────────
+document.getElementById('email-btn').addEventListener('click', () => {
+  navigator.clipboard.writeText('arielvisuals.me@outlook.com').catch(()=>{});
+  const ok = document.getElementById('copy-ok');
+  ok.style.opacity = '1';
+  setTimeout(()=>{ ok.style.opacity='0'; }, 2200);
+});
+
+// ── CONTACT FORM ───────────────────────────────────
+(function(){
+  const form   = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const data    = new FormData(form);
+    const name    = String(data.get('name') || '').trim();
+    const email   = String(data.get('email') || '').trim();
+    const message = String(data.get('message') || '').trim();
+    const subject = encodeURIComponent('Project inquiry — ' + name);
+    const body    = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:arielvisuals.me@outlook.com?subject=' + subject + '&body=' + body;
+    status.textContent = 'Opening your email app… If nothing happens, write to arielvisuals.me@outlook.com';
+    setTimeout(() => { status.textContent = ''; }, 8000);
+  });
+})();
+</script>
+</body>
+</html>
