@@ -95,7 +95,10 @@
     #journey { position: relative; }
     #journey-pin { height: 100svh; display: flex; align-items: center; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
     #journey-pin::-webkit-scrollbar { display: none; }
-    #journey-track { display: flex; align-items: center; gap: clamp(7rem, 14vw, 15rem); width: max-content; padding: 0 max(12vw, 80px) 0 4vw; }
+    #journey-track { display: flex; align-items: center; gap: clamp(7rem, 14vw, 15rem); width: max-content; padding: 0 max(12vw, 80px) 0 6vw; }
+    /* Desktop: la primera tarjeta arranca en el lado derecho del viewport,
+       así "entra" con la subida natural de la sección sin animación extra */
+    @media (min-width: 769px) { #journey-track { padding-left: 58vw; } }
     .jr-item { position: relative; flex-shrink: 0; }
     /* Zigzag real: offsets en vh (proporcionales a la pantalla), no al tamaño de la tarjeta */
     .jr-item:nth-child(1) { transform: translateY(-11vh); width: min(430px, 76vw); }
@@ -1359,20 +1362,16 @@ document.addEventListener('DOMContentLoaded', function(){
     const jPin  = document.getElementById('journey-pin');
     const jDist = () => jTrack.scrollWidth - jPin.clientWidth;
     jPin.style.overflowX = 'hidden';
-    // Fase 1: mientras el manifesto sale, el contenido ya viene entrando desde la derecha.
-    // Recorre exactamente window.innerHeight px (la longitud de scroll de la aproximación),
-    // así la velocidad es 1:1 igual que la fase anclada y el empalme no se nota.
-    gsap.fromTo(jTrack, { x: () => window.innerHeight }, {
-      x: 0, ease: 'none', immediateRender: true,
-      scrollTrigger: { trigger: '#journey', start: 'top bottom', end: 'top top', scrub: 1.2, invalidateOnRefresh: true }
-    });
-    // Fase 2: sección anclada, mismo ritmo 1:1 hacia la izquierda
-    gsap.fromTo(jTrack, { x: 0 }, {
-      x: () => -jDist(), ease: 'none', immediateRender: false,
+    // Una sola animación continua: la entrada desde la derecha la da el
+    // padding-left del track (posición, no animación previa) — sin empalme
+    // entre tweens no existe el frame de salto. anticipatePin fuera: con
+    // Lenis controlando el scroll también provocaba brincos al anclar.
+    gsap.to(jTrack, {
+      x: () => -jDist(), ease: 'none',
       scrollTrigger: {
         trigger: '#journey', start: 'top top',
         end: () => '+=' + jDist(),
-        scrub: 1.2, pin: true, anticipatePin: 1, invalidateOnRefresh: true
+        scrub: 1.2, pin: true, invalidateOnRefresh: true
       }
     });
   }
