@@ -472,12 +472,12 @@
         </div>
 
         <!-- Foto (se activa sola cuando exista assets/ariel.jpg) -->
-        <img id="about-photo" alt="Ariel González" decoding="async" style="position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:90%;height:54%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.95);border:1px solid rgba(255,255,255,.08);display:none;" />
-        <div id="photo-grain" style="position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:90%;height:54%;pointer-events:none;opacity:.3;background-size:140px 140px;display:none;" aria-hidden="true"></div>
+        <img id="about-photo" alt="Ariel González" decoding="async" style="position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:82%;height:54%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.95);border:1px solid rgba(255,255,255,.08);display:none;" />
+        <div id="photo-grain" style="position:absolute;left:50%;top:51%;transform:translate(-50%,-50%);width:82%;height:54%;pointer-events:none;opacity:.3;background-size:140px 140px;display:none;" aria-hidden="true"></div>
 
         <!-- Firma en lima (se dibuja al hacer scroll) -->
         <svg viewBox="0 0 440 300" fill="none" style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-8deg);width:78%;overflow:visible;filter:drop-shadow(0 2px 10px rgba(198,255,52,.28));" aria-hidden="true">
-          <path id="sig-path" pathLength="1" d="M 132 62 C 96 92, 62 170, 66 218 C 70 252, 100 258, 118 230 C 142 190, 152 120, 150 66 C 149 60, 152 60, 153 66 C 156 130, 160 210, 170 232 C 176 244, 186 240, 190 222 C 196 196, 200 186, 205 186 C 209 186, 208 200, 210 218 C 212 234, 224 232, 230 214 C 236 196, 238 188, 243 188 C 247 188, 247 202, 250 222 C 253 240, 266 236, 272 216 C 278 196, 280 190, 285 190 C 289 190, 290 202, 293 218 C 296 232, 306 230, 313 210 C 318 190, 322 150, 330 96 C 332 82, 336 80, 338 92 C 342 130, 346 200, 352 230 C 354 240, 358 240, 362 226 C 370 190, 386 120, 398 78" stroke="#C6FF34" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path id="sig-path" pathLength="1" d="M 132 62 C 96 92, 62 170, 66 218 C 70 252, 100 258, 118 230 C 142 190, 152 120, 150 66 C 149 60, 152 60, 153 66 C 156 130, 160 210, 170 232 C 176 244, 186 240, 190 222 C 193 200, 196 188, 200 188 C 204 188, 204 202, 207 220 C 210 234, 216 232, 220 214 C 224 198, 226 190, 230 190 C 234 190, 234 202, 237 220 C 240 234, 246 232, 250 214 C 254 198, 256 190, 260 190 C 264 190, 264 202, 267 220 C 270 234, 276 232, 280 214 C 284 198, 286 190, 290 190 C 294 190, 294 202, 297 218 C 300 232, 307 230, 313 210 C 318 190, 322 150, 330 96 C 332 82, 336 80, 338 92 C 342 130, 346 200, 352 230 C 354 240, 358 240, 362 226 C 370 190, 386 120, 398 78" stroke="#C6FF34" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
@@ -1209,8 +1209,8 @@ document.addEventListener('DOMContentLoaded', function(){
   // (segment splits match the path: A loop ≈ 38%, middle u's ≈ 24%, final N ≈ 38%)
   gsap.set('#sig-path',{strokeDashoffset:1});
   gsap.timeline({scrollTrigger:{trigger:'#about-img',start:'top 70%'}})
-    .to('#sig-path',{strokeDashoffset:.62,duration:.5, ease:'power1.in'})
-    .to('#sig-path',{strokeDashoffset:.38,duration:.32,ease:'power1.inOut'},'+=0.09')
+    .to('#sig-path',{strokeDashoffset:.66,duration:.5, ease:'power1.in'})
+    .to('#sig-path',{strokeDashoffset:.34,duration:.42,ease:'power1.inOut'},'+=0.09')
     .to('#sig-path',{strokeDashoffset:0,  duration:.45,ease:'power2.out'},'+=0.07');
   gsap.from('.proj-row',{opacity:0,y:32,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'#proj-list',start:'top 80%'}});
   gsap.from('.proc-step',{opacity:0,y:40,stagger:.12,duration:.75,ease:'power3.out',scrollTrigger:{trigger:'#process',start:'top 72%'}});
