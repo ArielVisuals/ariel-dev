@@ -98,11 +98,11 @@
     #journey-track { display: flex; align-items: center; gap: clamp(7rem, 14vw, 15rem); width: max-content; padding: 0 max(12vw, 80px) 0 6vw; }
     /* Desktop: la primera tarjeta arranca en el lado derecho del viewport,
        así "entra" con la subida natural de la sección sin animación extra */
-    @media (min-width: 769px) { #journey-track { padding-left: 58vw; } }
+    @media (min-width: 769px) { #journey-track { padding-left: 80vw; } }
     .jr-item { position: relative; flex-shrink: 0; }
     /* Zigzag real: offsets en vh vía top (el transform queda libre para que
        GSAP anime la subida diagonal de cada tarjeta) */
-    .jr-item:nth-child(1) { top: -11vh; width: min(430px, 76vw); }
+    .jr-item:nth-child(1) { top: -14vh; width: min(430px, 76vw); }
     .jr-item:nth-child(2) { top: 15vh;  width: min(520px, 80vw); }
     .jr-item:nth-child(3) { top: -14vh; width: min(360px, 68vw); }
     .jr-item:nth-child(4) { top: 12vh;  width: min(480px, 78vw); }
@@ -554,7 +554,7 @@
 </section>
 
 <!-- ══════════ MANIFESTO ══════════ -->
-<section id="manifesto" class="sec-pad" style="padding:120px 64px;min-height:100svh;display:flex;align-items:center;justify-content:center;">
+<section id="manifesto" class="sec-pad" style="padding:100px 64px 40px;min-height:88svh;display:flex;align-items:center;justify-content:center;">
   <div style="max-width:1360px;margin:0 auto;text-align:center;">
     <p id="manifesto-text">
       <span class="mf-w mf-hl">Obsession</span> <span class="mf-w">is</span> <span class="mf-w">the</span> <span class="mf-w">method.</span>
@@ -1379,14 +1379,17 @@ document.addEventListener('DOMContentLoaded', function(){
     // Subida diagonal: cada tarjeta entra desde abajo-derecha y asciende hasta
     // su altura del zigzag mientras cruza la mitad derecha de la pantalla;
     // alcanzado su sitio, solo acompaña el recorrido horizontal.
-    document.querySelectorAll('.jr-item').forEach(item => {
+    document.querySelectorAll('.jr-item').forEach((item, i) => {
       gsap.from(item, {
-        y: 240, ease: 'power2.out',
+        // La primera tarjeta sube más y durante más recorrido: la diagonal se
+        // percibe "poco a poco" hasta asentarse; el resto, más corta.
+        y: i === 0 ? 300 : 240,
+        ease: 'power1.out',
         scrollTrigger: {
           trigger: item,
           containerAnimation: jTween,
           start: 'left 100%',
-          end: 'left 52%',
+          end: i === 0 ? 'left 38%' : 'left 52%',
           scrub: true
         }
       });
