@@ -395,7 +395,10 @@
   <div id="macos-dock" aria-hidden="true" style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%) translateY(120px);z-index:10;opacity:0;overflow:visible;">
     <div id="dock-inner" style="position:relative;padding:8px 14px;display:flex;align-items:flex-end;gap:6px;overflow:visible;">
       <!-- Fondo de la píldora: capa absoluta que se ensancha con la magnificación -->
-      <div id="dock-bg" style="position:absolute;inset:0;border-radius:22px;background:rgba(255,255,255,.08);backdrop-filter:blur(40px) saturate(220%) brightness(1.1);-webkit-backdrop-filter:blur(40px) saturate(220%) brightness(1.1);border:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 12px 48px rgba(0,0,0,.72),0 2px 0 rgba(255,255,255,.06) inset,0 -1px 0 rgba(0,0,0,.4) inset,inset 0 1px 0 rgba(255,255,255,.18);"></div>
+      <!-- El backdrop-filter se activa por JS al terminar el fade de entrada:
+           animar opacity sobre un ancestro de un backdrop-filter produce un
+           manchado azulado en Chromium/WebKit -->
+      <div id="dock-bg" style="position:absolute;inset:0;border-radius:22px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 12px 48px rgba(0,0,0,.72),0 2px 0 rgba(255,255,255,.06) inset,0 -1px 0 rgba(0,0,0,.4) inset,inset 0 1px 0 rgba(255,255,255,.18);"></div>
 
       <!-- Finder -->
       <div class="dock-icon" style="width:52px;height:52px;border-radius:12px;background:linear-gradient(145deg,#5ac8fa,#1b6dd1);display:flex;align-items:center;justify-content:center;cursor:none;flex-shrink:0;transform-origin:bottom center;">
@@ -1049,10 +1052,17 @@ document.addEventListener('DOMContentLoaded', function(){
   // ── Main timeline ─────────────────────────────────
   const tl = gsap.timeline();
 
-  // T=0.4 — Dock slides up
+  // T=0.4 — Dock slides up (glass effect enabled only after the fade ends)
+  const dockBg = document.getElementById('dock-bg');
+  function setDockGlass(on){
+    const v = on ? 'blur(40px) saturate(220%) brightness(1.1)' : '';
+    dockBg.style.backdropFilter = v;
+    dockBg.style.webkitBackdropFilter = v;
+  }
   tl.fromTo('#macos-dock',
     { opacity:0, y:64, scale:.93 },
-    { opacity:1, y:0, scale:1, duration:.78, ease:'power4.out' }, 0.18)
+    { opacity:1, y:0, scale:1, duration:.78, ease:'power4.out',
+      onComplete(){ setDockGlass(true); } }, 0.18)
 
   // T=1.0 — Cursor setup: appears top-right, natural starting position
   .call(()=>{
@@ -1171,7 +1181,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
   // Cursor + dock fade out
   .to(cur,           { opacity:0, duration:.38, ease:'power3.in' }, 3.76)
-  .to('#macos-dock', { opacity:0, y:60, duration:.55, ease:'power3.in' }, 3.80)
+  .to('#macos-dock', { opacity:0, y:60, duration:.55, ease:'power3.in',
+      onStart(){ setDockGlass(false); } }, 3.80)
 
   // Window opens
   .call(()=>{
