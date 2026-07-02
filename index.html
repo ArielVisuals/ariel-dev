@@ -89,6 +89,10 @@
     .sig-lime { color: #C6FF34; }
     #sig-path { stroke-dasharray: 1; }
 
+    /* MANIFESTO — declaración gigante con palabras en lima serif */
+    #manifesto-text { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: clamp(2.1rem, 5.4vw, 4.8rem); line-height: 1.1; letter-spacing: -.02em; text-transform: uppercase; color: #EDEDE6; margin: 0; text-wrap: balance; }
+    .mf-hl { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 600; color: #C6FF34; }
+
     .stack-item { position: relative; transition: background .3s cubic-bezier(.23,1,.32,1); }
     .stack-item:hover { background: rgba(198,255,52,.05); }
     .stack-item:hover .si-label { color: #C6FF34 !important; }
@@ -508,6 +512,18 @@
         <span class="skill-tag">React</span><span class="skill-tag">Next.js</span><span class="skill-tag">Node.js</span><span class="skill-tag">Python</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Figma</span><span class="skill-tag">Docker</span><span class="skill-tag">AWS</span><span class="skill-tag">GraphQL</span><span class="skill-tag">TypeScript</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">Redis</span>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════ MANIFESTO ══════════ -->
+<section id="manifesto" class="sec-pad" style="padding:170px 64px;">
+  <div class="section-inner" style="max-width:1180px;margin:0 auto;text-align:center;">
+    <p id="manifesto-text">
+      <span class="mf-w mf-hl">Obsession</span> <span class="mf-w">is</span> <span class="mf-w">the</span> <span class="mf-w">method.</span>
+      <span class="mf-w">Every</span> <span class="mf-w">product</span> <span class="mf-w">I</span> <span class="mf-w">build</span> <span class="mf-w">is</span> <span class="mf-w">made</span> <span class="mf-w">to</span> <span class="mf-w mf-hl">connect</span>
+      <span class="mf-w">people,</span> <span class="mf-w">code</span> <span class="mf-w">and</span> <span class="mf-w">purpose</span>
+      <span class="mf-w">in</span> <span class="mf-w">the</span> <span class="mf-w">same</span> <span class="mf-w mf-hl">motion.</span>
+    </p>
   </div>
 </section>
 
@@ -1240,6 +1256,16 @@ document.addEventListener('DOMContentLoaded', function(){
   rv('#proc-hdr');
   rv('#stack-hdr');
   rv('#contact-inner');
+  // Manifesto: each word lights up as you scroll through the section (scrub)
+  const mfWords = document.querySelectorAll('#manifesto .mf-w');
+  if(mfWords.length){
+    gsap.set(mfWords, { opacity: .13 });
+    gsap.to(mfWords, {
+      opacity: 1, stagger: .05, ease: 'none',
+      scrollTrigger: { trigger: '#manifesto', start: 'top 78%', end: 'center 42%', scrub: .6 }
+    });
+  }
+
   // Signature: three strokes with micro-pauses, like actually signing
   // (segment splits match the path: A loop ≈ 38%, middle u's ≈ 24%, final N ≈ 38%)
   gsap.set('#sig-path',{strokeDashoffset:1});
