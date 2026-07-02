@@ -288,7 +288,17 @@
 <!-- ══════════ NAV ══════════ -->
 <header id="site-nav">
   <div style="display:flex;align-items:center;">
-    <a href="#hero" style="font-family:'JetBrains Mono',monospace;font-size:.8rem;letter-spacing:.18em;color:#C6FF34;text-decoration:none;font-weight:500;">AG</a>
+    <a href="#hero" aria-label="Ariel González — inicio" style="text-decoration:none;display:block;line-height:0;">
+      <svg width="92" height="36" viewBox="0 0 92 36" aria-hidden="true">
+        <defs>
+          <linearGradient id="logo-tg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#C6FF34"/><stop offset=".55" stop-color="#B2D5E5"/><stop offset="1" stop-color="#ffffff"/>
+          </linearGradient>
+        </defs>
+        <text x="0" y="16" textLength="92" lengthAdjust="spacing" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;fill:#F5F5F5;">Ariel</text>
+        <text x="0" y="33" textLength="92" lengthAdjust="spacing" style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:15px;fill:url(#logo-tg);">Gonzalez</text>
+      </svg>
+    </a>
   </div>
   <nav class="nav-pill">
     <a href="#about" class="nav-link">About</a>
@@ -784,7 +794,10 @@
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer style="padding:28px 64px;display:flex;align-items:center;justify-content:space-between;">
-  <span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.18em;color:#C6FF34;font-weight:500;">AG</span>
+  <svg width="66" height="27" viewBox="0 0 92 36" aria-label="Ariel González" role="img">
+    <text x="0" y="16" textLength="92" lengthAdjust="spacing" style="font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;fill:#F5F5F5;">Ariel</text>
+    <text x="0" y="33" textLength="92" lengthAdjust="spacing" style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;font-size:15px;fill:url(#logo-tg);">Gonzalez</text>
+  </svg>
   <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.08em;color:rgba(245,245,245,.55);">© 2026 Ariel González</span>
   <span style="font-family:'JetBrains Mono',monospace;font-size:.58rem;letter-spacing:.06em;color:rgba(245,245,245,.55);">Engineered with obsession.</span>
 </footer>
