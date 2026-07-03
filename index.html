@@ -179,6 +179,24 @@
       .jr-title { font-size: 1.15rem; }
       .jr-desc { font-size: .76rem; }
     }
+
+    /* Pista de swipe del journey (misma familia visual que el scroll del hero) */
+    #journey-hint {
+      display: none; align-items: center; justify-content: center; gap: 12px;
+      padding: 2px 24px 10px; transition: opacity .45s ease;
+      font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+      letter-spacing: .2em; text-transform: uppercase; color: rgba(245,245,245,.55);
+    }
+    .jh-track { width: 48px; height: 1px; background: rgba(178,213,229,.22); overflow: hidden; position: relative; display: inline-block; }
+    .jh-thumb { position: absolute; left: -45%; top: 0; width: 45%; height: 100%; background: #C6FF34; animation: jhSlide 2s cubic-bezier(.4,0,.6,1) infinite; }
+    @keyframes jhSlide {
+      0%   { left: -45%; opacity: 1; }
+      65%  { left: 100%; opacity: 1; }
+      66%  { left: 100%; opacity: 0; }
+      67%  { left: -45%; opacity: 0; }
+      100% { left: -45%; opacity: 1; }
+    }
+    @media (max-width: 768px) { #journey-hint { display: flex; } }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       html { scroll-behavior: auto; }
@@ -629,6 +647,11 @@
     </div>
     </div>
   </div>
+  <!-- Pista de deslizamiento — solo móvil, se desvanece al primer swipe -->
+  <div id="journey-hint" aria-hidden="true">
+    <span>Swipe</span>
+    <span class="jh-track"><span class="jh-thumb"></span></span>
+  </div>
 </section>
 
 <!-- ══════════ WORK ══════════ -->
@@ -1044,14 +1067,35 @@ const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 // ── macOS DOCK — MAGNIFICATION + GENIE EFFECT ──────
 // GSAP loads deferred, so this waits for DOMContentLoaded (deferred scripts run first)
 document.addEventListener('DOMContentLoaded', function(){
-  // No GSAP (CDN blocked/offline), reduced motion, or mobile: reveal everything immediately
-  if(typeof gsap === 'undefined' || REDUCED_MOTION || window.matchMedia('(max-width: 768px)').matches) {
+  // No GSAP (CDN blocked/offline) or reduced motion: reveal everything immediately
+  if(typeof gsap === 'undefined' || REDUCED_MOTION) {
     const win = document.getElementById('mac-window');
     if(win) win.style.opacity = '1';
     ['h-name','h-eye','h-tag','h-cta','h-scroll'].forEach(id=>{
       const el = document.getElementById(id);
       if(el){ el.style.opacity='1'; el.style.transform='none'; }
     });
+    return;
+  }
+
+  // Mobile: no dock theater, but the hero still earns its entrance —
+  // window rises first, then the content cascades in
+  if(window.matchMedia('(max-width: 768px)').matches) {
+    gsap.fromTo('#mac-window',
+      { opacity:0, y:36, scale:.96 },
+      { opacity:1, y:0, scale:1, duration:.85, ease:'power3.out', delay:.15 });
+    gsap.fromTo('#h-name',
+      { opacity:0, y:34, filter:'blur(10px)' },
+      { opacity:1, y:0, filter:'blur(0px)', duration:.9, ease:'expo.out', clearProps:'filter', delay:.55 });
+    gsap.fromTo('#h-eye',
+      { opacity:0, y:14 },
+      { opacity:1, y:0, duration:.6, ease:'power3.out', delay:.8 });
+    gsap.fromTo('#h-tag',
+      { opacity:0, y:14 },
+      { opacity:1, y:0, duration:.6, ease:'power3.out', delay:.95 });
+    gsap.fromTo('#h-cta',
+      { opacity:0, y:12 },
+      { opacity:1, y:0, duration:.55, ease:'back.out(1.4)', delay:1.1 });
     return;
   }
 
@@ -1628,6 +1672,15 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 });
+
+// ── JOURNEY SWIPE HINT ─────────────────────────────
+// La pista desaparece en cuanto el usuario descubre el gesto
+(function(){
+  const hint = document.getElementById('journey-hint');
+  const pin  = document.getElementById('journey-pin');
+  if(!hint || !pin) return;
+  pin.addEventListener('scroll', () => { hint.style.opacity = '0'; }, { once:true, passive:true });
+})();
 
 // ── MOBILE NAV ─────────────────────────────────────
 (function(){
