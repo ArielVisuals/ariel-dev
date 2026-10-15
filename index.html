@@ -1183,7 +1183,26 @@
           gap: 12px;
         "
       >
-        <a href="#contact" class="nav-hire">Hire me ↗</a>
+        <button
+          id="lang-toggle"
+          style="
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(178, 213, 229, 0.18);
+            border-radius: 100px;
+            padding: 6px 12px;
+            color: rgba(245, 245, 245, 0.55);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: all 0.2s;
+          "
+          onmouseover="this.style.color='#c6ff34'; this.style.borderColor='rgba(198, 255, 52, 0.4)'"
+          onmouseout="this.style.color='rgba(245, 245, 245, 0.55)'; this.style.borderColor='rgba(178, 213, 229, 0.18)'"
+        >
+          ES
+        </button>
+        <a href="#contact" class="nav-hire" id="nav-hire-btn">Hire me ↗</a>
         <button
           id="nav-hamburger"
           aria-label="Toggle navigation"
@@ -6529,6 +6548,292 @@
           }, 8000);
         });
       })();
+    </script>
+    <!-- ══════════ LANGUAGE TOGGLE SCRIPT ══════════ -->
+    <script>
+      const i18n = {
+        en: {
+          navAbout: "About",
+          navWork: "Work",
+          navProcess: "Process",
+          navStack: "Stack",
+          navContact: "Contact",
+          navHire: "Hire me ↗",
+          heroEye: "FULL STACK DEVELOPER · UX/UI · TELEMATIC ENGINEER",
+          heroTag:
+            "Engineering interfaces at the intersection<br />of code precision and visual intelligence.",
+          heroBtn: "View Work <span>→</span>",
+          heroTalk: "Let's talk ↗",
+          heroScroll: "SCROLL",
+          aboutEye: "01 / ABOUT",
+          aboutTitle:
+            "Engineer by logic.<br /><span class='tg'>designer by obsession.</span>",
+          aboutDesc:
+            "I'm a Telematic Engineer with a drive for building digital experiences that are technically precise and visually compelling. I bridge the gap between systems thinking and human-centered design.",
+          aboutQuote:
+            '"The best interface is the one that disappears — leaving only the experience."',
+          manifesto:
+            '<span class="mf-w mf-hl">Obsession</span> <span class="mf-w">is</span> <span class="mf-w">the</span> <span class="mf-w">method.</span> <span class="mf-w">Every</span> <span class="mf-w">product</span> <span class="mf-w">I</span> <span class="mf-w">build</span> <span class="mf-w">is</span> <span class="mf-w">made</span> <span class="mf-w">to</span> <span class="mf-w mf-hl">connect</span> <span class="mf-w">people,</span> <span class="mf-w">code</span> <span class="mf-w">and</span> <span class="mf-w">purpose</span> <span class="mf-w">in</span> <span class="mf-w">the</span> <span class="mf-w">same</span> <span class="mf-w mf-hl">motion.</span>',
+          jr1Desc:
+            "Computer science technical degree at Vocacional 12, Instituto Politécnico Nacional. First lines of code, first systems, first obsession.",
+          jr2Desc:
+            "Telematics Engineering at Unidad Profesional Interdisciplinaria en Ingeniería y Tecnologías Avanzadas: networks, embedded systems and software, end to end.",
+          jr3Title: "Freelance",
+          jr3Sub: "Web design & brand identity",
+          jr3Desc:
+            "A year shipping websites and brand identities for clients: naming, visual systems and the sites to carry them.",
+          jr4Desc:
+            "Nine months building interfaces and product experiences: from wireframe to production frontend.",
+          workEye: "02 / WORK",
+          workTitle: "Selected<br /><span class='tg'>projects</span>",
+          workCount: "03 projects",
+          procEye: "03 / PROCESS",
+          procTitle: "How I <span class='tg'>build</span>",
+          proc1T: "Research",
+          proc1D: "User interviews, competitive analysis, problem framing",
+          proc2T: "Design",
+          proc2D: "Wireframes, prototypes, design system definition",
+          proc3T: "Build",
+          proc3D: "Clean code, component architecture, API design",
+          proc4T: "Test",
+          proc4D: "Unit tests, integration, performance benchmarks",
+          proc5T: "Ship",
+          proc5D: "CI/CD deployment, monitoring, iteration",
+          stackEye: "04 / STACK",
+          stackTitle: "Tech <span class='tg'>arsenal</span>",
+          contactEye: "05 / CONTACT",
+          contactTitle: "Let's build<br /><span class='tg'>something.</span>",
+          contactDesc:
+            "Open to freelance projects, full-time roles, and collaborations that push the boundary of what's possible on the web.",
+          contactName: "Your name",
+          contactEmail: "Your email",
+          contactMsg: "Tell me about your project...",
+          contactSend: "Send Message →",
+          footerCopy: "Engineered with obsession.",
+        },
+        es: {
+          navAbout: "Sobre mí",
+          navWork: "Proyectos",
+          navProcess: "Proceso",
+          navStack: "Stack",
+          navContact: "Contacto",
+          navHire: "Contrátame ↗",
+          heroEye: "DESARROLLADOR FULL STACK · UX/UI · INGENIERO TELEMÁTICO",
+          heroTag:
+            "Creando interfaces en la intersección<br />de la precisión del código y la inteligencia visual.",
+          heroBtn: "Ver Proyectos <span>→</span>",
+          heroTalk: "Hablemos ↗",
+          heroScroll: "SCROLL",
+          aboutEye: "01 / SOBRE MÍ",
+          aboutTitle:
+            "Ingeniero por lógica.<br /><span class='tg'>diseñador por obsesión.</span>",
+          aboutDesc:
+            "Soy Ingeniero Telemático con pasión por crear experiencias digitales que sean técnicamente precisas y visualmente atractivas. Conecto el pensamiento sistémico con el diseño centrado en el usuario.",
+          aboutQuote:
+            '"La mejor interfaz es la que desaparece — dejando solo la experiencia."',
+          manifesto:
+            '<span class="mf-w mf-hl">La obsesión</span> <span class="mf-w">es</span> <span class="mf-w">el</span> <span class="mf-w">método.</span> <span class="mf-w">Cada</span> <span class="mf-w">producto</span> <span class="mf-w">que</span> <span class="mf-w">creo</span> <span class="mf-w">está</span> <span class="mf-w">hecho</span> <span class="mf-w">para</span> <span class="mf-w mf-hl">conectar</span> <span class="mf-w">personas,</span> <span class="mf-w">código</span> <span class="mf-w">y</span> <span class="mf-w">propósito</span> <span class="mf-w">en</span> <span class="mf-w">un</span> <span class="mf-w">mismo</span> <span class="mf-w mf-hl">movimiento.</span>',
+          jr1Desc:
+            "Técnico en Informática en la Vocacional 12, Instituto Politécnico Nacional. Primeras líneas de código, primeros sistemas, primera obsesión.",
+          jr2Desc:
+            "Ingeniería en Telemática en UPIITA: redes, sistemas embebidos y software, de principio a fin.",
+          jr3Title: "Independiente",
+          jr3Sub: "Diseño web e identidad de marca",
+          jr3Desc:
+            "Un año creando sitios web e identidades de marca para clientes: naming, sistemas visuales y los sitios para llevarlos a cabo.",
+          jr4Desc:
+            "Nueve meses construyendo interfaces y experiencias de producto: desde wireframes hasta frontend en producción.",
+          workEye: "02 / PROYECTOS",
+          workTitle: "Proyectos<br /><span class='tg'>destacados</span>",
+          workCount: "03 proyectos",
+          procEye: "03 / PROCESO",
+          procTitle: "Cómo <span class='tg'>construyo</span>",
+          proc1T: "Investigar",
+          proc1D:
+            "Entrevistas a usuarios, análisis competitivo, encuadre de problemas",
+          proc2T: "Diseñar",
+          proc2D: "Wireframes, prototipos, definición del sistema de diseño",
+          proc3T: "Construir",
+          proc3D: "Código limpio, arquitectura de componentes, diseño de APIs",
+          proc4T: "Probar",
+          proc4D: "Pruebas unitarias, integración, métricas de rendimiento",
+          proc5T: "Lanzar",
+          proc5D: "Despliegue CI/CD, monitoreo, iteración continua",
+          stackEye: "04 / STACK",
+          stackTitle: "<span class='tg'>Arsenal</span> tecnológico",
+          contactEye: "05 / CONTACTO",
+          contactTitle: "Construyamos<br /><span class='tg'>algo.</span>",
+          contactDesc:
+            "Abierto a proyectos independientes, roles a tiempo completo y colaboraciones que empujen los límites de lo posible en la web.",
+          contactName: "Tu nombre",
+          contactEmail: "Tu correo",
+          contactMsg: "Cuéntame sobre tu proyecto...",
+          contactSend: "Enviar Mensaje →",
+          footerCopy: "Diseñado con obsesión.",
+        },
+      };
+
+      let currentLang = "en";
+
+      function updateLanguage(lang) {
+        const t = i18n[lang];
+
+        // Update Toggle Button Text
+        document.getElementById("lang-toggle").innerText =
+          lang === "en" ? "ES" : "EN";
+
+        // Navbars
+        const navLinks = document.querySelectorAll(".nav-pill .nav-link");
+        if (navLinks.length) {
+          navLinks[0].innerText = t.navAbout;
+          navLinks[1].innerText = t.navWork;
+          navLinks[2].innerText = t.navProcess;
+          navLinks[3].innerText = t.navStack;
+          navLinks[4].innerText = t.navContact;
+        }
+        const hireBtn = document.getElementById("nav-hire-btn");
+        if (hireBtn) hireBtn.innerText = t.navHire;
+
+        const mobLinks = document.querySelectorAll(
+          "#mobile-nav-drawer .mob-link"
+        );
+        if (mobLinks.length) {
+          mobLinks[0].innerText = t.navAbout;
+          mobLinks[1].innerText = t.navWork;
+          mobLinks[2].innerText = t.navProcess;
+          mobLinks[3].innerText = t.navStack;
+          mobLinks[4].innerText = t.navContact;
+        }
+        const mobHire = document.querySelector("#mobile-nav-drawer .mob-hire");
+        if (mobHire) mobHire.innerText = t.navHire;
+
+        // Hero
+        const eyeSpan = document.querySelector("#h-eye span:last-child");
+        if (eyeSpan) eyeSpan.innerText = t.heroEye;
+        const hTag = document.getElementById("h-tag");
+        if (hTag) hTag.innerHTML = t.heroTag;
+        const hBtnWork = document.getElementById("btn-work");
+        if (hBtnWork) hBtnWork.innerHTML = t.heroBtn;
+        const hTalk = document.querySelector("#h-cta a");
+        if (hTalk) hTalk.innerText = t.heroTalk;
+        const hScroll = document.querySelector("#h-scroll span");
+        if (hScroll) hScroll.innerText = t.heroScroll;
+
+        // About
+        const aboutEye = document.querySelector(
+          "#about-txt div span:last-child"
+        );
+        if (aboutEye) aboutEye.innerText = t.aboutEye;
+        const aboutTitle = document.querySelector("#about-txt h2");
+        if (aboutTitle) aboutTitle.innerHTML = t.aboutTitle;
+        const aboutDesc = document.querySelector("#about-txt p");
+        if (aboutDesc) aboutDesc.innerText = t.aboutDesc;
+        const aboutQuote = document.querySelector("#about-txt blockquote p");
+        if (aboutQuote) aboutQuote.innerText = t.aboutQuote;
+
+        // Manifesto
+        const mfText = document.getElementById("manifesto-text");
+        if (mfText) mfText.innerHTML = t.manifesto;
+
+        // Journey
+        const jrItems = document.querySelectorAll(".jr-item");
+        if (jrItems.length >= 4) {
+          jrItems[0].querySelector(".jr-desc").innerText = t.jr1Desc;
+          jrItems[1].querySelector(".jr-desc").innerText = t.jr2Desc;
+          jrItems[2].querySelector(".jr-title").innerText = t.jr3Title;
+          jrItems[2].querySelector(".jr-sub").innerText = t.jr3Sub;
+          jrItems[2].querySelector(".jr-desc").innerText = t.jr3Desc;
+          jrItems[3].querySelector(".jr-desc").innerText = t.jr4Desc;
+        }
+
+        // Work
+        const workHdr = document.getElementById("work-hdr");
+        if (workHdr) {
+          const wEye = workHdr.querySelector("div div span:last-child");
+          if (wEye) wEye.innerText = t.workEye;
+          const wTitle = workHdr.querySelector("h2");
+          if (wTitle) wTitle.innerHTML = t.workTitle;
+          const wCount = workHdr.querySelector("> span");
+          if (wCount) wCount.innerText = t.workCount;
+        }
+
+        // Process
+        const procHdr = document.getElementById("proc-hdr");
+        if (procHdr) {
+          const pEye = procHdr.querySelector("div span:last-child");
+          if (pEye) pEye.innerText = t.procEye;
+          const pTitle = procHdr.querySelector("h2");
+          if (pTitle) pTitle.innerHTML = t.procTitle;
+        }
+        const pSteps = document.querySelectorAll(".proc-step");
+        if (pSteps.length >= 5) {
+          pSteps[0].querySelector("h3").innerText = t.proc1T;
+          pSteps[0].querySelector("p").innerText = t.proc1D;
+          pSteps[1].querySelector("h3").innerText = t.proc2T;
+          pSteps[1].querySelector("p").innerText = t.proc2D;
+          pSteps[2].querySelector("h3").innerText = t.proc3T;
+          pSteps[2].querySelector("p").innerText = t.proc3D;
+          pSteps[3].querySelector("h3").innerText = t.proc4T;
+          pSteps[3].querySelector("p").innerText = t.proc4D;
+          pSteps[4].querySelector("h3").innerText = t.proc5T;
+          pSteps[4].querySelector("p").innerText = t.proc5D;
+        }
+
+        // Stack
+        const stckHdr = document.getElementById("stack-hdr");
+        if (stckHdr) {
+          const sEye = stckHdr.querySelector("div span:last-child");
+          if (sEye) sEye.innerText = t.stackEye;
+          const sTitle = stckHdr.querySelector("h2");
+          if (sTitle) sTitle.innerHTML = t.stackTitle;
+        }
+
+        // Contact
+        const cntInner = document.getElementById("contact-inner");
+        if (cntInner) {
+          const cEye = cntInner.querySelector("div span:nth-child(2)");
+          if (cEye) cEye.innerText = t.contactEye;
+          const cTitle = cntInner.querySelector("h2");
+          if (cTitle) cTitle.innerHTML = t.contactTitle;
+          const cDesc = cntInner.querySelector(".card-glass p");
+          if (cDesc) cDesc.innerText = t.contactDesc;
+        }
+
+        // Contact Form placeholders
+        const form = document.getElementById("contact-form");
+        if (form) {
+          form.querySelector('input[name="name"]').placeholder = t.contactName;
+          form.querySelector('input[name="email"]').placeholder =
+            t.contactEmail;
+          form.querySelector('textarea[name="message"]').placeholder =
+            t.contactMsg;
+          form.querySelector('button[type="submit"]').innerHTML = t.contactSend;
+        }
+
+        // Footer
+        const footerSpans = document.querySelectorAll("footer span");
+        if (footerSpans.length >= 3) {
+          footerSpans[2].innerText = t.footerCopy;
+        }
+
+        // Si ScrollTrigger está presente, es buena idea decirle que recalcule el alto de la página
+        if (typeof ScrollTrigger !== "undefined") {
+          setTimeout(() => ScrollTrigger.refresh(), 100);
+        }
+      }
+
+      document.getElementById("lang-toggle").addEventListener("click", () => {
+        currentLang = currentLang === "en" ? "es" : "en";
+
+        // Pequeña animación de opacidad en la página completa para disimular el cambio de texto
+        gsap.fromTo(
+          "main, section",
+          { opacity: 0.8 },
+          { opacity: 1, duration: 0.4, ease: "power2.out" }
+        );
+
+        updateLanguage(currentLang);
+      });
     </script>
   </body>
 </html>
